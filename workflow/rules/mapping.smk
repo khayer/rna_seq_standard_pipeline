@@ -19,7 +19,7 @@ rule align:
     input: get_trimmed_reads
     output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam"
     log:    "00log/Star_align_{sample_name}.log"
-    conda: "../envs/bwa.yaml"
+    conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 10,
         mem = "40G",
