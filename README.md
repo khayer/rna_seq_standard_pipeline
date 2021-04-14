@@ -1,6 +1,11 @@
-# rna_seq_standard_pipeline
-Snakemake workflow to analyze bulk RNA-seq 
+# UNDER CONSTRUCTION
 
+
+# rna_seq_standard_pipeline
+
+
+
+Snakemake workflow to analyze bulk RNA-seq 
 
 ## Samples config 
 
