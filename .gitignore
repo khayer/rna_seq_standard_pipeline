@@ -131,3 +131,4 @@ pkgs/*
 .DS_Store
 
 reads/*
+.snakemake/

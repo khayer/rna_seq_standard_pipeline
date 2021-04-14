@@ -10,3 +10,8 @@ include: "rules/mapping.smk"
 
 rule all:
     input: all_input
+
+if not os.path.exists("00log"):
+    os.makedirs("00log")
+if not os.path.exists("logs_slurm"):
+    os.makedirs("logs_slurm")
