@@ -22,17 +22,18 @@ rule align:
     conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 10,
-        mem = "40G",
+        mem = "60G",
         time = "44:00:00"
     params: 
-        options = "--twopassMode Basic --outSAMtype BAM SortedByCoordinate --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --outFileNamePrefix {sample_name}_ --readFilesCommand zcat --quantMode GeneCounts",
+        options = "--outFileNamePrefix {sample_name}_ --twopassMode Basic --outSAMtype BAM SortedByCoordinate --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --readFilesCommand zcat --quantMode GeneCounts",
         star_index = config["star_index"],
         tmp_dir = config["tmp_dir"],
         sample_name = "{sample_name}"
     message: "aligning {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
-       	STAR --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}_{params.sample_name}
+       	STAR {params.options} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}_{params.sample_name}
+        samtools index {output}
         """
 
 #rule salmon:
