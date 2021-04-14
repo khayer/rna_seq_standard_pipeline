@@ -7,6 +7,8 @@
 
 Snakemake workflow to analyze bulk RNA-seq 
 
+This is largerly inspired by https://github.com/snakemake-workflows.
+
 ## Samples config 
 
 The sample spreadsheet specified in config.yaml has to be formatted like:
