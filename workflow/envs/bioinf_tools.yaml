@@ -1,0 +1,8 @@
+name: bioinf_tools
+channels:
+  - bioconda
+dependencies:
+  - bbmap
+  - samtools
+  - salmon
+  - star

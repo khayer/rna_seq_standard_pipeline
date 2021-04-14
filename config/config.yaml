@@ -1,0 +1,8 @@
+samples: config/SraRunTable_fraction_rna.csv
+tools:
+    BWA: /home/hayerk/bin/bwa
+    Samtools: /home/hayerk/tools/samtools-1.3/samtools
+restriction_file: /home/hayerk/data/index/GRCh38.p13/GRCh38.MboI.rest_site_positions.bed
+idx_bwa: /home/hayerk/data/index/GRCh38.p13/GRCh38.primary_assembly.genome.fa
+resolution: 100K,50K,25K,10K,5K,2K,1K
+tmp_dir: /scr1/users/hayerk/tmp
