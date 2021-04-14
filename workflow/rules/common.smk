@@ -3,6 +3,30 @@ import pandas as pd
 
 samples = pd.read_csv(config["samples"], sep=",", dtype = str).set_index("Run", drop=False)
 
+def get_raw_reads(wildcards):
+    run_ids = samples[samples["Run"] == wildcards.sample]["Run"].tolist()
+    out = []
+    for r in run_ids:
+        out.extend ( 
+            expand ( [
+                "reads/{sample}_1.fastq.gz" , "reads/{sample}_2.fastq.gz"
+            ], sample = r
+            )
+        )
+    return out
+
+def get_trimmed_reads(wildcards):
+    run_ids = samples[samples["sample_name"] == wildcards.sample_name]["Run"].tolist()
+    out = []
+    for r in run_ids:
+        out.extend ( 
+            expand ( [
+                "results/trimmed/{sample}_trim_1.fastq.gz", "results/trimmed/{sample}_trim_2.fastq.gz"
+            ], sample = r
+            )
+        )
+    return out
+
 
 def all_input(wildcards):
 
@@ -22,6 +46,16 @@ def all_input(wildcards):
                             "results/trimmed/{sample}_trim_{read}.fastq.gz"
                         ],
                         sample = sample, read = read
+                    )
+                )
+
+    for sn in samples.sample_name:
+        wanted_input.extend(
+                    expand (
+                        [
+                            "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam"
+                        ],
+                        sample_name = sn
                     )
                 )
 

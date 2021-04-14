@@ -1,5 +1,5 @@
 rule trimming:
-    input: "reads/{sample}_1.fastq.gz", "reads/{sample}_2.fastq.gz"
+    input: "reads/{sample}_1.fastq.gz" , "reads/{sample}_2.fastq.gz"
     output: "results/trimmed/{sample}_trim_1.fastq.gz", "results/trimmed/{sample}_trim_2.fastq.gz"
     log:    "00log/trim_{sample}.log"
     conda: "../envs/bioinf_tools.yaml"
@@ -16,19 +16,42 @@ rule trimming:
         """
 
 rule align:
-    input: "reads/{sample}_{read}.fastq.gz"
-    output: "results/mapped/{sample}.unsorted_{read}.bam"
-    log:    "00log/bwa_align_{sample}_{read}.log"
+    input: get_trimmed_reads
+    output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam"
+    log:    "00log/Star_align_{sample_name}.log"
     conda: "../envs/bwa.yaml"
     resources: 
         cpu = 10,
         mem = "40G",
         time = "44:00:00"
     params: 
-        bwa = "-A1 -B4  -E50 -L0" 
+        options = "--twopassMode Basic --outSAMtype BAM SortedByCoordinate --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --outFileNamePrefix {sample_name}_ --readFilesCommand zcat --quantMode GeneCounts",
+        star_index = config["star_index"],
+        tmp_dir = config["tmp_dir"],
+        sample_name = "{sample_name}"
     message: "aligning {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
-       	bwa mem {params.bwa} -t {resources.cpu} {config[idx_bwa]} {input} 2> {log} |  samtools view -Shb - >  {output}
+       	STAR --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}_{params.sample_name}
         """
+
+#rule salmon:
+#    input: get_trimmed_reads
+#    output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam"
+#    log:    "00log/Star_align_{sample_name}.log"
+#    conda: "../envs/bwa.yaml"
+#    resources: 
+#        cpu = 10,
+#        mem = "40G",
+#        time = "44:00:00"
+#    params: 
+#        options = "--twopassMode Basic --outSAMtype BAM SortedByCoordinate --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --outFileNamePrefix {sample_name}_ --readFilesCommand zcat --quantMode GeneCounts",
+#        star_index = config["star_index"],
+#        tmp_dir = config["tmp_dir"],
+#        sample_name = "{sample_name}"
+#    message: "aligning {input}: {resources.cpu} threads / {resources.mem}"
+#    shell:
+#        """
+#        STAR --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}_{params.sample_name}
+#        """
 
