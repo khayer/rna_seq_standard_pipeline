@@ -1,3 +1,20 @@
+rule trimming:
+    input: "reads/{sample}_1.fastq.gz", "reads/{sample}_2.fastq.gz"
+    output: "results/trimmed/{sample}_trim_1.fastq.gz", "results/trimmed/{sample}_trim_2.fastq.gz"
+    log:    "00log/trim_{sample}.log"
+    conda: "../envs/bioinf_tools.yaml"
+    resources: 
+        cpu = 10,
+        mem = "20G",
+        time = "44:00:00"
+    params: 
+        options = "ktrim=r k=23 mink=11 hdist=1 minlength=35 tpe tbo qtrim=r trimq=20 qin=33" 
+    message: "trimming {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        bbduk.sh in={input[0]} in2={input[1]} ref=adapters {params.options} -Xmx10g threads={resources.cpu} out={output[0]} out2={output[1]} 2> {log} 
+        """
+
 rule align:
     input: "reads/{sample}_{read}.fastq.gz"
     output: "results/mapped/{sample}.unsorted_{read}.bam"
@@ -15,24 +32,3 @@ rule align:
        	bwa mem {params.bwa} -t {resources.cpu} {config[idx_bwa]} {input} 2> {log} |  samtools view -Shb - >  {output}
         """
 
-
-
-
-rule merge_bam_by_kind:
-    input: get_mapped_reads
-    output: "results/merged/{group}.unsorted_{read}.bam"
-    log:    "00log/merge_bam_by_kind_{group}_{read}.log"
-    conda: "../envs/picard.yaml"
-    resources: 
-        cpu = 10,
-        mem = "20G",
-        time = "44:00:00"
-    params: 
-        picard = "-SORT_ORDER queryname",
-        tmp_dir = config["tmp_dir"],
-        input = get_mapped_reads_formatted
-    message: "merge_bam_by_kind {input}: {resources.cpu} threads / {resources.mem}"
-    shell:
-        """
-        picard MergeSamFiles {params.picard} {params.input} -OUTPUT {output} -TMP_DIR {params.tmp_dir} 2> {log}  
-        """
