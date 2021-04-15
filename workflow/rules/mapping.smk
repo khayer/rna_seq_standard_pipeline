@@ -35,6 +35,7 @@ rule align:
         if [ -d {params.tmp_dir}/STAR_{params.sample_name} ]; then rm -r {params.tmp_dir}/STAR_{params.sample_name}; fi
        	STAR {params.options} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}/STAR_{params.sample_name}
         samtools index {output}
+        rm -r {params.tmp_dir}/STAR_{params.sample_name}
         """
 
 #rule salmon:
