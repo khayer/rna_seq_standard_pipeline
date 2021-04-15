@@ -25,14 +25,15 @@ rule align:
         mem = "60G",
         time = "44:00:00"
     params: 
-        options = "--outFileNamePrefix {sample_name}_ --twopassMode Basic --outSAMtype BAM SortedByCoordinate --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --readFilesCommand zcat --quantMode GeneCounts",
+        options = "--outFileNamePrefix results/mapped/{sample_name}_ --twopassMode Basic --outSAMtype BAM SortedByCoordinate --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --readFilesCommand zcat --quantMode GeneCounts",
         star_index = config["star_index"],
         tmp_dir = config["tmp_dir"],
         sample_name = "{sample_name}"
     message: "aligning {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
-       	STAR {params.options} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}_{params.sample_name}
+        if [ -d {params.tmp_dir}/STAR_{params.sample_name} ]; then rm -r {params.tmp_dir}/STAR_{params.sample_name}; fi
+       	STAR {params.options} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}/STAR_{params.sample_name}
         samtools index {output}
         """
 

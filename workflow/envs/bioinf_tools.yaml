@@ -5,4 +5,4 @@ dependencies:
   - bbmap
   - samtools
   - salmon
-  - star
+  - star=2.7.1a
