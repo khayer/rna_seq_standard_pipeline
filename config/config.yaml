@@ -3,4 +3,5 @@ tools:
     Samtools: /home/hayerk/tools/samtools-1.3/samtools
 star_index: /home/hayerk/data/index/GRCh38.p13/GENCODE_GRCh38.p13
 salmon_index: /home/hayerk/data/index/gencode/gencode.v30.transcripts_salmon
+blacklist: /home/hayerk/data/index/hg38-blacklist.v2.bed
 tmp_dir: /scr1/users/hayerk/tmp

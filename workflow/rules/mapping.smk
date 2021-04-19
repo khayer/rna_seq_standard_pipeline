@@ -58,3 +58,22 @@ rule salmon:
         salmon quant -i {params.salmon_index} -p {resources.cpu} -l A --validateMappings -1 {input[0]} -2 {input[1]} -o salmon_quant_{params.sample_name}
         """
 
+rule bamCoverage_CPM:
+    input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+    output: "results/coverage/{sample_name}_fwd_CPM.bw", "results/coverage/{sample_name}_rev_CPM.bw"
+    log:  "00log/{sample_name}.bamCoverage"
+    conda: "../envs/bioinf_tools.yaml"
+    resources:
+        cpu = 4,
+        mem = "10G",
+        time = "12:00:00"
+    params:
+        blacklist = "--blackListFileName " + config["blacklist"]
+    message: "CPM_bamCoverage_fwd_rev {input}: {threads} threads" #"/ {params.mem}"
+    shell: 
+        """
+        conda activate deeptools_env
+        bamCoverage -bs 1 -b {input[0]} -o {output[0]} --filterRNAstrand forward -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 20
+        bamCoverage -bs 1 -b {input[0]} -o {output[1]} --filterRNAstrand reverse -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 20
+        """
+
