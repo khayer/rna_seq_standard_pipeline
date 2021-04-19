@@ -53,7 +53,8 @@ def all_input(wildcards):
         wanted_input.extend(
                     expand (
                         [
-                            "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam"
+                            "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam",
+                            "results/quant/salmon_quant_{sample_name}/quant.sf"
                         ],
                         sample_name = sn
                     )

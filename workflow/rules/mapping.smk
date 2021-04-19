@@ -38,23 +38,23 @@ rule align:
         rm -r {params.tmp_dir}/STAR_{params.sample_name}
         """
 
-#rule salmon:
-#    input: get_trimmed_reads
-#    output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam"
-#    log:    "00log/Star_align_{sample_name}.log"
-#    conda: "../envs/bwa.yaml"
-#    resources: 
-#        cpu = 10,
-#        mem = "40G",
-#        time = "44:00:00"
-#    params: 
-#        options = "--twopassMode Basic --outSAMtype BAM SortedByCoordinate --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --outFileNamePrefix {sample_name}_ --readFilesCommand zcat --quantMode GeneCounts",
-#        star_index = config["star_index"],
-#        tmp_dir = config["tmp_dir"],
-#        sample_name = "{sample_name}"
-#    message: "aligning {input}: {resources.cpu} threads / {resources.mem}"
-#    shell:
-#        """
-#        STAR --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}_{params.sample_name}
-#        """
+rule salmon:
+    input: get_trimmed_reads
+    output: "results/quant/salmon_quant_{sample_name}/quant.sf"
+    log:    "00log/Salmon_quant_{sample_name}.log"
+    conda: "../envs/bioinf_tools.yaml"
+    resources: 
+        cpu = 10,
+        mem = "20G",
+        time = "12:00:00"
+    params: 
+        options = "--twopassMode Basic --outSAMtype BAM SortedByCoordinate --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --outFileNamePrefix {sample_name}_ --readFilesCommand zcat --quantMode GeneCounts",
+        salmon_index = config["salmon_index"],
+        tmp_dir = config["tmp_dir"],
+        sample_name = "{sample_name}"
+    message: "salmon quant {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        salmon quant -i {params.salmon_index} -p {resources.cpu} -l A --validateMappings -1 {input[0]} -2 {input[1]} -o salmon_quant_{params.sample_name}
+        """
 
