@@ -15,3 +15,7 @@ if not os.path.exists("00log"):
     os.makedirs("00log")
 if not os.path.exists("logs_slurm"):
     os.makedirs("logs_slurm")
+if not os.path.exists("results"):
+    os.makedirs("results")
+if not os.path.exists("results/coverage"):
+    os.makedirs("results/coverage")

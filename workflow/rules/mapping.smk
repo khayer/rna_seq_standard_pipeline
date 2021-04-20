@@ -42,7 +42,7 @@ rule salmon:
     input: get_trimmed_reads
     output: "results/quant/salmon_quant_{sample_name}/quant.sf"
     log:    "00log/Salmon_quant_{sample_name}.log"
-    conda: "../envs/bioinf_tools.yaml"
+    conda: "../envs/salmon.yaml"
     resources: 
         cpu = 10,
         mem = "20G",
@@ -62,7 +62,7 @@ rule bamCoverage_CPM:
     input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
     output: "results/coverage/{sample_name}_fwd_CPM.bw", "results/coverage/{sample_name}_rev_CPM.bw"
     log:  "00log/{sample_name}.bamCoverage"
-    conda: "../envs/bioinf_tools.yaml"
+    conda: "../envs/deeptools.yaml"
     resources:
         cpu = 4,
         mem = "10G",
@@ -72,7 +72,6 @@ rule bamCoverage_CPM:
     message: "CPM_bamCoverage_fwd_rev {input}: {threads} threads" #"/ {params.mem}"
     shell: 
         """
-        conda activate deeptools_env
         bamCoverage -bs 1 -b {input[0]} -o {output[0]} --filterRNAstrand forward -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 20
         bamCoverage -bs 1 -b {input[0]} -o {output[1]} --filterRNAstrand reverse -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 20
         """

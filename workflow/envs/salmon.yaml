@@ -1,0 +1,6 @@
+name: salmon
+channels:
+  - bioconda
+dependencies:
+  - salmon
+  

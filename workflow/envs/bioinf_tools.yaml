@@ -4,6 +4,4 @@ channels:
 dependencies:
   - bbmap
   - samtools
-  - salmon
   - star=2.7.1a
-  - deeptools
