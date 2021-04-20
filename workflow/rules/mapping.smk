@@ -17,7 +17,7 @@ rule trimming:
 
 rule align:
     input: get_trimmed_reads
-    output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam"
+    output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
     log:    "00log/Star_align_{sample_name}.log"
     conda: "../envs/bioinf_tools.yaml"
     resources: 

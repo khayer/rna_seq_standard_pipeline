@@ -30,3 +30,10 @@ The sample spreadsheet specified in config.yaml has to be formatted like:
 ## Submit to cluster
 
     snakemake --profile slurm -s ~/data/tools/rna_seq_standard_pipeline/workflow/Snakefile -p --use-conda --configfile config/config.yaml
+
+
+## Make this rulegraph
+
+    snakemake --configfile config/config.yaml --use-conda --rulegraph | dot -Tsvg > dag.svg
+
+![example dag](misc/dag.svg)
