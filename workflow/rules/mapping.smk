@@ -48,14 +48,13 @@ rule salmon:
         mem = "20G",
         time = "12:00:00"
     params: 
-        options = "--twopassMode Basic --outSAMtype BAM SortedByCoordinate --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --outFileNamePrefix {sample_name}_ --readFilesCommand zcat --quantMode GeneCounts",
         salmon_index = config["salmon_index"],
         tmp_dir = config["tmp_dir"],
         sample_name = "{sample_name}"
     message: "salmon quant {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
-        salmon quant -i {params.salmon_index} -p {resources.cpu} -l A --validateMappings -1 {input[0]} -2 {input[1]} -o salmon_quant_{params.sample_name}
+        salmon quant -i {params.salmon_index} -p {resources.cpu} -l A --validateMappings -1 {input[0]} -2 {input[1]} -o results/quant/salmon_quant_{params.sample_name}
         """
 
 rule bamCoverage_CPM:
