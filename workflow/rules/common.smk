@@ -4,7 +4,7 @@ import pandas as pd
 samples = pd.read_csv(config["samples"], sep=",", dtype = str).set_index("Run", drop=False)
 
 def get_raw_reads(wildcards):
-    run_ids = samples[samples["Run"] == wildcards.sample]["Run"].tolist()
+    run_ids = samples[samples["sample_name"] == wildcards.sample]["Run"].tolist()
     out = []
     for r in run_ids:
         out.extend ( 
@@ -54,9 +54,9 @@ def all_input(wildcards):
                     expand (
                         [
                             "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam",
-                            "results/quant/salmon_quant_{sample_name}/quant.sf",
-                            "results/coverage/{sample_name}_fwd_CPM.bw", 
-                            "results/coverage/{sample_name}_rev_CPM.bw"
+                            "results/quant/salmon_quant_{sample_name}/quant.sf"#,
+                            #"results/coverage/{sample_name}_fwd_CPM.bw", 
+                            #"results/coverage/{sample_name}_rev_CPM.bw"
                         ],
                         sample_name = sn
                     )
