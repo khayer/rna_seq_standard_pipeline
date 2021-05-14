@@ -4,7 +4,7 @@ import pandas as pd
 samples = pd.read_csv(config["samples"], sep=",", dtype = str).set_index("Run", drop=False)
 
 def get_raw_reads(wildcards):
-    run_ids = samples[samples["sample_name"] == wildcards.sample]["Run"].tolist()
+    run_ids = samples[samples["Run"] == wildcards.sample]["Run"].tolist()
     out = []
     for r in run_ids:
         out.extend ( 
