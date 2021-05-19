@@ -53,7 +53,7 @@ rule majiq_build_combine:
 #SRR1791098=SRR1791098
 #SRR1791099=SRR1791099
 #SRR1791100=SRR1791100
-majiq build /mnt/isilon/thomas-tikhonenko_lab/user/radensc/genomic_info/human/hg38_GRCh38_Reference_Genome/transcriptome_annotation/Homo_sapiens.GRCh38.94.chr.gff3 --nproc 4 --incremental -o ./build --conf settings.txt
+majiq build --incremental -o ./build --conf settings.txt
         [ -d {params.out_folder} ] || mkdir {params.out_folder}
         echo "[info]" >> {params.settings_file}
         echo "readlen=152" >> {params.settings_file}
@@ -63,5 +63,5 @@ majiq build /mnt/isilon/thomas-tikhonenko_lab/user/radensc/genomic_info/human/hg
         echo "[experiments]" >> {params.settings_file}
         echo "{params.sample_name}={params.sample_name}" >> {params.settings_file}
         cd {params.out_folder}
-        majiq build {params.gff3} --nproc {resources.cpu} --junc-files-only -o ./build_{params.sample_name} --simplify --conf {params.settings_file}
+        majiq build {params.gff3} --incremental -o ./build --conf settings.txt --nproc {resources.cpu} --simplify
         """
