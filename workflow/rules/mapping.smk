@@ -68,7 +68,7 @@ rule bamCoverage_CPM:
         time = "12:00:00"
     params:
         blacklist = "--blackListFileName " + config["blacklist"]
-    message: "CPM_bamCoverage_fwd_rev {input}: {threads} threads" #"/ {params.mem}"
+    message: "CPM_bamCoverage_fwd_rev {input}: {resources.cpu} threads" #"/ {params.mem}"
     shell: 
         """
         bamCoverage -bs 1 -b {input[0]} -o {output[0]} --filterRNAstrand forward -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 20

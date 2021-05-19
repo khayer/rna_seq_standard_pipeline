@@ -4,4 +4,5 @@ tools:
 star_index: /home/hayerk/data/index/GRCh38.p13/GENCODE_GRCh38.p13
 salmon_index: /home/hayerk/data/index/gencode/gencode.v30.transcripts_salmon
 blacklist: /home/hayerk/data/index/hg38-blacklist.v2.bed
+gff3: /home/hayerk/data/index/GRCh38.p13/gencode.v32.primary_assembly.annotation.gff3
 tmp_dir: /scr1/users/hayerk/tmp
