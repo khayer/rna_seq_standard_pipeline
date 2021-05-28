@@ -28,7 +28,7 @@ rule majiq_build:
         echo "genome=hg38" >> {params.settings_file}
         echo "strandness=None" >> {params.settings_file}
         echo "[experiments]" >> {params.settings_file}
-        echo "{params.sample_name}={params.sample_name}" >> {params.settings_file}
+        echo "{params.sample_name}={params.sample_name}_Aligned.sortedByCoord.out" >> {params.settings_file}
         cd {params.out_folder}
         bash -c '
             . $HOME/.bashrc # if not loaded automatically
