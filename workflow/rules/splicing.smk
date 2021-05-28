@@ -22,7 +22,7 @@ rule majiq_build:
             conda deactivate'
         
         [ -d {params.out_folder} ] || mkdir {params.out_folder}
-        echo "[info]" >> {params.settings_file}
+        echo "[info]" > {params.settings_file}
         echo "readlen=152" >> {params.settings_file}
         echo "bamdirs={params.bamdirs}" >> {params.settings_file}
         echo "genome=hg38" >> {params.settings_file}
