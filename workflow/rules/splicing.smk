@@ -16,8 +16,11 @@ rule majiq_build:
     message: "majiq_build {input}: {resources.cpu} threads" #"/ {params.mem}"
     shell: 
         """
-        source /home/hayerk/.bash_profile
-        conda activate majiq_env
+        bash -c '
+            . $HOME/.bashrc # if not loaded automatically
+            conda activate majiq_env
+            conda deactivate'
+        
         [ -d {params.out_folder} ] || mkdir {params.out_folder}
         echo "[info]" >> {params.settings_file}
         echo "readlen=152" >> {params.settings_file}
@@ -27,7 +30,12 @@ rule majiq_build:
         echo "[experiments]" >> {params.settings_file}
         echo "{params.sample_name}={params.sample_name}" >> {params.settings_file}
         cd {params.out_folder}
-        majiq build {params.gff3} --nproc {resources.cpu} --junc-files-only -o ./build_{params.sample_name} --simplify --conf {params.settings_file}
+        bash -c '
+            . $HOME/.bashrc # if not loaded automatically
+            conda activate majiq_env
+            majiq build {params.gff3} --nproc {resources.cpu} --junc-files-only -o ./build_{params.sample_name} --simplify --conf {params.settings_file}
+            conda deactivate'
+        
         """
 
 
