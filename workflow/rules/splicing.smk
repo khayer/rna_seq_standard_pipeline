@@ -16,6 +16,7 @@ rule majiq_build:
     message: "majiq_build {input}: {resources.cpu} threads" #"/ {params.mem}"
     shell: 
         """
+        source ~/.bash_profile;
         conda activate majiq_env
         [ -d {params.out_folder} ] || mkdir {params.out_folder}
         echo "[info]" >> {params.settings_file}
