@@ -33,7 +33,7 @@ rule majiq_build:
         bash -c '
             . $HOME/.bashrc # if not loaded automatically
             conda activate majiq_env
-            majiq build {params.gff3} --nproc {resources.cpu} --junc-files-only -o ./build_{params.sample_name} --simplify --conf {params.settings_file}
+            majiq build {params.gff3} --nproc {resources.cpu} --junc-files-only -o ./build_{params.sample_name} --simplify --conf settings.txt
             conda deactivate'
         
         """
