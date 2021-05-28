@@ -34,6 +34,7 @@ rule majiq_build:
             . $HOME/.bashrc # if not loaded automatically
             conda activate majiq_env
             majiq build {params.gff3} --nproc {resources.cpu} --junc-files-only -o ./build_{params.sample_name} --simplify --conf settings.txt
+            ln -s build_{params.sample_name}/{params.sample_name}_Aligned.sortedByCoord.out.sj build_{params.sample_name}/{params.sample_name}.sj
             conda deactivate'
         
         """
