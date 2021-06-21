@@ -15,6 +15,15 @@ The sample spreadsheet specified in config.yaml has to be formatted like:
 
 ![example spreadsheet](misc/example_sample_table.png)
 
+## Folder structure
+
+```bash
+├── reads/ -> fastqfiles
+├── config/
+	├──samples.csv
+	├── config.yaml
+```
+
  ### Slurm (or other cluter) profile
 
     (snakemake) [hayerk@reslnvvhpc041 endpoints]$ head ~/.config/snakemake/slurm/config.yaml
