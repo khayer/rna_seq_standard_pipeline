@@ -28,6 +28,19 @@ def get_trimmed_reads(wildcards):
     return out
 
 
+def get_sj_files(wildcards):
+    run_ids = samples["sample_name"].tolist()
+    out = []
+    for r in run_ids:
+        out.extend ( 
+            expand ( [
+                "results/splicing/majiq/majiq_{sample}/build_{sample}/{sample}.sj"
+            ], sample = r
+            )
+        )
+    return out
+
+
 def all_input(wildcards):
 
     wanted_input = []

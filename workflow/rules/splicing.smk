@@ -1,7 +1,7 @@
 rule majiq_build:
     input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
     output: "results/splicing/majiq/majiq_{sample_name}/build_{sample_name}/{sample_name}.sj"
-    log:  "00log/{sample_name}.bamCoverage"
+    log:  "00log/{sample_name}.majiq_build"
     #conda: "../envs/deeptools.yaml"
     resources:
         cpu = 4,
@@ -16,11 +16,6 @@ rule majiq_build:
     message: "majiq_build {input}: {resources.cpu} threads" #"/ {params.mem}"
     shell: 
         """
-        bash -c '
-            . $HOME/.bashrc # if not loaded automatically
-            conda activate majiq_env
-            conda deactivate'
-        
         [ -d {params.out_folder} ] || mkdir {params.out_folder}
         echo "[info]" > {params.settings_file}
         echo "readlen=152" >> {params.settings_file}
@@ -40,10 +35,12 @@ rule majiq_build:
         """
 
 
+
+
 #rule majiq_build_combine:
-#    input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
-#    output: "results/splicing/majiq/majiq_{sample_name}/build_{sample_name}/{sample_name}.sj"
-#    log:  "00log/{sample_name}.bamCoverage"
+#    input: get_sj_files
+#    output: "results/splicing/majiq/build"
+#    log:  "00log/{sample_name}.majiq_build_combine"
 #    #conda: "../envs/deeptools.yaml"
 #    resources:
 #        cpu = 4,
@@ -58,7 +55,13 @@ rule majiq_build:
 #    message: "majiq_build_combine {input}: {resources.cpu} threads" #"/ {params.mem}"
 #    shell: 
 #        """
-#        conda activate majiq_env
+#        [ -d {params.out_folder} ] || mkdir {params.out_folder}
+#        echo "[info]" > {params.settings_file}
+#        echo "readlen=152" >> {params.settings_file}
+#        echo "bamdirs={params.bamdirs}" >> {params.settings_file}
+#        echo "genome=hg38" >> {params.settings_file}
+#        echo "strandness=None" >> {params.settings_file}
+#        echo "[experiments]" >> {params.settings_file}
 ##[experiments]
 ##SRR1791098=SRR1791098
 ##SRR1791099=SRR1791099
@@ -75,3 +78,4 @@ rule majiq_build:
 #        cd {params.out_folder}
 #        majiq build {params.gff3} --incremental -o ./build --conf settings.txt --nproc {resources.cpu} --simplify
 #        """
+#
