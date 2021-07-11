@@ -4,4 +4,4 @@ channels:
 dependencies:
   - bbmap
   - samtools
-  - star=2.7.1a
+  - star=2.7.9a
