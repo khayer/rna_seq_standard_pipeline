@@ -1,7 +1,9 @@
 name: bioinf_tools
 channels:
   - bioconda
+  - conda-forge
 dependencies:
   - bbmap
   - samtools
   - star=2.7.9a
+  - fastqc

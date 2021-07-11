@@ -15,6 +15,24 @@ rule trimming:
         bbduk.sh in={input[0]} in2={input[1]} ref=adapters {params.options} -Xmx10g threads={resources.cpu} out={output[0]} out2={output[1]} 2> {log} 
         """
 
+
+rule fastqc:
+    input: get_trimmed_reads
+    output: "results/fastqc/{sample_name}_trim_1_fastqc.zip","results/fastqc/{sample_name}_trim_2_fastqc.zip"
+    log:    "00log/fastqc_{sample_name}.log"
+    conda: "../envs/bioinf_tools.yaml"
+    resources: 
+        cpu = 6,
+        mem = "10G",
+        time = "24:00:00"
+    params: 
+        options = " "
+    message: "fastqc {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        fastqc -t {resources.cpu} -o results/fastqc/ {input}
+        """
+
 rule align:
     input: get_trimmed_reads
     output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
