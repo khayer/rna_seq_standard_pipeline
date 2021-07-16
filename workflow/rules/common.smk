@@ -70,9 +70,9 @@ def all_input(wildcards):
                             "results/quant/salmon_quant_{sample_name}/quant.sf",
                             "results/splicing/majiq/majiq_{sample_name}/build_{sample_name}/{sample_name}.sj",
                             "results/fastqc/{sample_name}_trim_1_fastqc.zip",
-                            "results/fastqc/{sample_name}_trim_2_fastqc.zip"#,
-                            #"results/coverage/{sample_name}_fwd_CPM.bw", 
-                            #"results/coverage/{sample_name}_rev_CPM.bw"
+                            "results/fastqc/{sample_name}_trim_2_fastqc.zip",#,
+                            "results/coverage/{sample_name}_fwd_CPM.bw", 
+                            "results/coverage/{sample_name}_rev_CPM.bw"
                         ],
                         sample_name = sn
                     )
