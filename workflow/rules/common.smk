@@ -56,7 +56,7 @@ def all_input(wildcards):
             wanted_input.extend(
                     expand (
                         [
-                            "results/trimmed/{sample}_trim_{read}.fastq.gz"
+                            "results/trimmed/{sample}_trim_{read}.fastq.gz",
                             "results/fastqc/{sample}_trim_{read}_fastqc.zip"
                         ],
                         sample = sample, read = read
