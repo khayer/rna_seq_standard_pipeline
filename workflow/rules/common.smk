@@ -27,6 +27,18 @@ def get_trimmed_reads(wildcards):
         )
     return out
 
+def get_trimmed_reads2(wildcards):
+    run_ids = samples[samples["Run"] == wildcards.sample_name]["Run"].tolist()
+    out = []
+    for r in run_ids:
+        out.extend ( 
+            expand ( [
+                "results/trimmed/{sample}_trim_1.fastq.gz", "results/trimmed/{sample}_trim_2.fastq.gz"
+            ], sample = r
+            )
+        )
+    return out
+
 
 def get_sj_files(wildcards):
     run_ids = samples["sample_name"].tolist()

@@ -17,9 +17,9 @@ rule trimming:
 
 
 rule fastqc:
-    input: get_trimmed_reads
-    output: "results/fastqc/{sample_name}_trim_1_fastqc.zip","results/fastqc/{sample_name}_trim_2_fastqc.zip"
-    log:    "00log/fastqc_{sample_name}.log"
+    input: get_trimmed_reads2
+    output: "results/fastqc/{sample}_trim_1_fastqc.zip","results/fastqc/{sample}_trim_2_fastqc.zip"
+    log:    "00log/fastqc_{sample}.log"
     conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 6,
