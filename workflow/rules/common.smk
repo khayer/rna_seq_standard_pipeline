@@ -28,7 +28,7 @@ def get_trimmed_reads(wildcards):
     return out
 
 def get_trimmed_reads2(wildcards):
-    run_ids = samples[samples["Run"] == wildcards.sample_name]["Run"].tolist()
+    run_ids = samples[samples["Run"] == wildcards.sample]["Run"].tolist()
     out = []
     for r in run_ids:
         out.extend ( 
