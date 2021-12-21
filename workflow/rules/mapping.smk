@@ -15,10 +15,44 @@ rule trimming:
         bbduk.sh in={input[0]} in2={input[1]} ref=adapters {params.options} -Xmx10g threads={resources.cpu} out={output[0]} out2={output[1]} 2> {log} 
         """
 
+rule trimming_single:
+    input: "reads/{sample}.fastq.gz" 
+    output: "results/trimmed/{sample}_trim.fastq.gz"
+    log:    "00log/trim_{sample}.log"
+    conda: "../envs/bioinf_tools.yaml"
+    resources: 
+        cpu = 10,
+        mem = "20G",
+        time = "44:00:00"
+    params: 
+        options = "ktrim=r k=23 mink=11 hdist=1 minlength=35 tpe tbo qtrim=r trimq=20 qin=33" 
+    message: "trimming {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        bbduk.sh in={input[0]} ref=adapters {params.options} -Xmx10g threads={resources.cpu} out={output[0]} 2> {log} 
+        """
+
 
 rule fastqc:
     input: get_trimmed_reads2
     output: "results/fastqc/{sample}_trim_1_fastqc.zip","results/fastqc/{sample}_trim_2_fastqc.zip"
+    log:    "00log/fastqc_{sample}.log"
+    conda: "../envs/bioinf_tools.yaml"
+    resources: 
+        cpu = 6,
+        mem = "10G",
+        time = "24:00:00"
+    params: 
+        options = " "
+    message: "fastqc {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        fastqc -t {resources.cpu} -o results/fastqc/ {input}
+        """
+
+rule fastqc_single:
+    input: get_trimmed_reads2
+    output: "results/fastqc/{sample}_trim_fastqc.zip"
     log:    "00log/fastqc_{sample}.log"
     conda: "../envs/bioinf_tools.yaml"
     resources: 
@@ -51,29 +85,53 @@ rule align:
     shell:
         """
         if [ -d {params.tmp_dir}/STAR_{params.sample_name} ]; then rm -r {params.tmp_dir}/STAR_{params.sample_name}; fi
-       	STAR {params.options} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}/STAR_{params.sample_name}
+        STAR {params.options} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}/STAR_{params.sample_name}
         samtools index {output}
         rm -r {params.tmp_dir}/STAR_{params.sample_name}
         """
 
-rule salmon:
-    input: get_trimmed_reads
-    output: "results/quant/salmon_quant_{sample_name}/quant.sf"
-    log:    "00log/Salmon_quant_{sample_name}.log"
-    conda: "../envs/salmon.yaml"
-    resources: 
-        cpu = 10,
-        mem = "20G",
-        time = "12:00:00"
-    params: 
-        salmon_index = config["salmon_index"],
-        tmp_dir = config["tmp_dir"],
-        sample_name = "{sample_name}"
-    message: "salmon quant {input}: {resources.cpu} threads / {resources.mem}"
-    shell:
-        """
-        salmon quant -i {params.salmon_index} -p {resources.cpu} -l A --validateMappings -1 {input[0]} -2 {input[1]} -o results/quant/salmon_quant_{params.sample_name}
-        """
+
+if config["single_end"]:
+    rule salmon_single:
+        input: get_trimmed_reads
+        output: "results/quant/salmon_quant_{sample_name}/quant.sf"
+        log:    "00log/Salmon_quant_{sample_name}.log"
+        conda: "../envs/salmon.yaml"
+        resources: 
+            cpu = 10,
+            mem = "20G",
+            time = "12:00:00"
+        params: 
+            salmon_index = config["salmon_index"],
+            tmp_dir = config["tmp_dir"],
+            sample_name = "{sample_name}"
+        message: "salmon quant {input}: {resources.cpu} threads / {resources.mem}"
+        shell:
+            """
+            salmon quant -i {params.salmon_index} -p {resources.cpu} -l A --validateMappings -r {input[0]} -o results/quant/salmon_quant_{params.sample_name}
+            """
+
+else:
+    rule salmon:
+        input: get_trimmed_reads
+        output: "results/quant/salmon_quant_{sample_name}/quant.sf"
+        log:    "00log/Salmon_quant_{sample_name}.log"
+        conda: "../envs/salmon.yaml"
+        resources: 
+            cpu = 10,
+            mem = "20G",
+            time = "12:00:00"
+        params: 
+            salmon_index = config["salmon_index"],
+            tmp_dir = config["tmp_dir"],
+            sample_name = "{sample_name}"
+        message: "salmon quant {input}: {resources.cpu} threads / {resources.mem}"
+        shell:
+            """
+            salmon quant -i {params.salmon_index} -p {resources.cpu} -l A --validateMappings -1 {input[0]} -2 {input[1]} -o results/quant/salmon_quant_{params.sample_name}
+            """
+
+
 
 rule bamCoverage_CPM:
     input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
