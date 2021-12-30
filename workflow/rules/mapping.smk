@@ -151,3 +151,19 @@ rule bamCoverage_CPM:
         bamCoverage -bs 1 -b {input[0]} -o {output[1]} --filterRNAstrand reverse -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 255
         """
 
+rule bamCoverage_CPM_single:
+    input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+    output: "results/coverage/{sample_name}_CPM.bw"
+    log:  "00log/{sample_name}.bamCoverage_CPM_single"
+    conda: "../envs/deeptools.yaml"
+    resources:
+        cpu = 4,
+        mem = "10G",
+        time = "12:00:00"
+    params:
+        blacklist = "--blackListFileName " + config["blacklist"]
+    message: "bamCoverage_CPM_single {input}: {resources.cpu} threads" #"/ {params.mem}"
+    shell: 
+        """
+        bamCoverage -bs 1 -b {input[0]} -o {output[0]} -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 255
+        """

@@ -97,6 +97,7 @@ def all_input(wildcards):
                         [
                             "results/trimmed/{sample}_trim.fastq.gz",
                             "results/fastqc/{sample}_trim_fastqc.zip",
+                            "results/coverage/{sample}_CPM.bw"
                         ],
                         sample = sample
                     )
@@ -107,7 +108,9 @@ def all_input(wildcards):
                         expand (
                             [
                                 "results/trimmed/{sample}_trim_{read}.fastq.gz",
-                                "results/fastqc/{sample}_trim_{read}_fastqc.zip"
+                                "results/fastqc/{sample}_trim_{read}_fastqc.zip",
+                                "results/coverage/fwd_{sample}_CPM.bw", 
+                                "results/coverage/rev_{sample}_CPM.bw"
                             ],
                             sample = sample, read = read
                         )
@@ -119,9 +122,7 @@ def all_input(wildcards):
                         [
                             
                             "results/quant/salmon_quant_{sample_name}/quant.sf",
-                            "results/splicing/majiq/majiq_{sample_name}/build_{sample_name}/{sample_name}.sj",
-                            "results/coverage/{sample_name}_fwd_CPM.bw", 
-                            "results/coverage/{sample_name}_rev_CPM.bw"
+                            "results/splicing/majiq/majiq_{sample_name}/build_{sample_name}/{sample_name}.sj"
                         ],
                         sample_name = sn
                     )
