@@ -122,7 +122,8 @@ def all_input(wildcards):
                             
                             "results/quant/salmon_quant_{sample_name}/quant.sf",
                             "results/splicing/majiq/majiq_{sample_name}/build_{sample_name}/{sample_name}.sj",
-                            "results/mapped/{sample_name}_Aligned.sortedByCoord.out_junc.bed"
+                            "results/mapped/{sample_name}_Aligned.sortedByCoord.out_junc.bed",
+                            "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent",
                             "results/coverage/fwd_{sample_name}_CPM.bw", 
                             "results/coverage/rev_{sample_name}_CPM.bw"
                         ],
