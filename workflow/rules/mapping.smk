@@ -5,7 +5,7 @@ rule trimming:
     conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 10,
-        mem = "20G",
+        mem = "20",
         time = "44:00:00"
     params: 
         options = "ktrim=r k=23 mink=11 hdist=1 minlength=35 tpe tbo qtrim=r trimq=20 qin=33" 
@@ -40,7 +40,7 @@ rule fastqc:
     conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 6,
-        mem = "10G",
+        mem = "10",
         time = "24:00:00"
     params: 
         options = " "
@@ -57,7 +57,7 @@ rule fastqc_single:
     conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 6,
-        mem = "10G",
+        mem = "10",
         time = "24:00:00"
     params: 
         options = " "
@@ -74,7 +74,7 @@ rule align:
     conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 10,
-        mem = "60G",
+        mem = "60",
         time = "44:00:00"
     params: 
         options = "--outFileNamePrefix results/mapped/{sample_name}_ --twopassMode Basic --outSAMtype BAM SortedByCoordinate --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --readFilesCommand zcat --quantMode GeneCounts",
@@ -99,7 +99,7 @@ if config["single_end"]:
         conda: "../envs/salmon.yaml"
         resources: 
             cpu = 10,
-            mem = "20G",
+            mem = "20",
             time = "12:00:00"
         params: 
             salmon_index = config["salmon_index"],
@@ -119,7 +119,7 @@ else:
         conda: "../envs/salmon.yaml"
         resources: 
             cpu = 10,
-            mem = "20G",
+            mem = "20",
             time = "12:00:00"
         params: 
             salmon_index = config["salmon_index"],
@@ -140,7 +140,7 @@ if config["single_end"]:
         conda: "../envs/deeptools.yaml"
         resources:
             cpu = 4,
-            mem = "10G",
+            mem = "10",
             time = "12:00:00"
         params:
             blacklist = "--blackListFileName " + config["blacklist"]
@@ -159,7 +159,7 @@ else:
         conda: "../envs/deeptools.yaml"
         resources:
             cpu = 4,
-            mem = "10G",
+            mem = "10",
             time = "12:00:00"
         params:
             blacklist = "--blackListFileName " + config["blacklist"]
