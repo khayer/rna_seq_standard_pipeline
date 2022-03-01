@@ -202,5 +202,5 @@ rule run_TPMCalculator:
     shell:
         """
         cd results/mapped/
-        TPMCalculator -g {params.gtf} -b {input[0]} -p -q 200 -e 
+        TPMCalculator -g {params.gtf_anno} -b {input[0]} -p -q 200 -e 
         """
