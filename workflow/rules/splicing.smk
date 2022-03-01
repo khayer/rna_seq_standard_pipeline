@@ -5,7 +5,7 @@ rule majiq_build:
     #conda: "../envs/deeptools.yaml"
     resources:
         cpu = 4,
-        mem = "10G",
+        mem = "10",
         time = "12:00:00"
     params:
         out_folder = "results/splicing/majiq/majiq_{sample_name}",

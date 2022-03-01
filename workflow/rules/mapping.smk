@@ -177,7 +177,7 @@ rule run_regtools:
     log:    "00log/run_regtools_{sample_name}.log"
     resources: 
         cpu = 2,
-        mem = "10G",
+        mem = "10",
         time = "24:00:00"
     params: 
         regtools = config["tools"]["regtools"]
@@ -194,7 +194,7 @@ rule run_TPMCalculator:
     log:    "00log/run_TPMCalculator_{sample_name}.log"
     resources: 
         cpu = 2,
-        mem = "10G",
+        mem = "10",
         time = "34:00:00"
     params: 
         gtf_anno = config["gtf"]
