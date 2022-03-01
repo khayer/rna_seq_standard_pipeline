@@ -170,4 +170,36 @@ else:
             bamCoverage -bs 1 -b {input[0]} -o {output[1]} --filterRNAstrand reverse -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 255
             """
 
+### extract junctions
+rule run_regtools:
+    input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+    output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out_junc.bed"
+    log:    "00log/run_regtools_{sample_name}.log"
+    resources: 
+        cpu = 10,
+        mem = "60G",
+        time = "44:00:00"
+    params: 
+        regtools = config["tools"]["regtools"]
+    message: "run_regtools {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        {params.regtools} junctions extract -o {output[0]} {input[0]}
+        """
 
+### calculate TPMs
+rule run_regtools:
+    input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+    output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out_junc.bed"
+    log:    "00log/run_regtools_{sample_name}.log"
+    resources: 
+        cpu = 10,
+        mem = "60G",
+        time = "44:00:00"
+    params: 
+        regtools = config["tools"]["regtools"]
+    message: "run_regtools {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        {params.regtools} junctions extract -o {output[0]} {input[0]}
+        """
