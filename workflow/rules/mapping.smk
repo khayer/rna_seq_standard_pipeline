@@ -176,9 +176,9 @@ rule run_regtools:
     output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out_junc.bed"
     log:    "00log/run_regtools_{sample_name}.log"
     resources: 
-        cpu = 10,
-        mem = "60G",
-        time = "44:00:00"
+        cpu = 2,
+        mem = "10G",
+        time = "24:00:00"
     params: 
         regtools = config["tools"]["regtools"]
     message: "run_regtools {input}: {resources.cpu} threads / {resources.mem}"
@@ -188,18 +188,19 @@ rule run_regtools:
         """
 
 ### calculate TPMs
-rule run_regtools:
+rule run_TPMCalculator:
     input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
-    output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out_junc.bed"
-    log:    "00log/run_regtools_{sample_name}.log"
+    output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent"
+    log:    "00log/run_TPMCalculator_{sample_name}.log"
     resources: 
-        cpu = 10,
-        mem = "60G",
-        time = "44:00:00"
+        cpu = 2,
+        mem = "10G",
+        time = "34:00:00"
     params: 
-        regtools = config["tools"]["regtools"]
-    message: "run_regtools {input}: {resources.cpu} threads / {resources.mem}"
+        gtf_anno = config["gtf"]
+    message: "run_TPMCalculator {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
-        {params.regtools} junctions extract -o {output[0]} {input[0]}
+        cd results/mapped/
+        TPMCalculator -g {params.gtf} -b {input[0]} -p -q 200 -e 
         """

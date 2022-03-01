@@ -7,3 +7,4 @@ dependencies:
   - samtools
   - star=2.7.9a
   - fastqc
+  - tpmcalculator
