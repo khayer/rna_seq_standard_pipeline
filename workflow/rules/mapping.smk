@@ -198,10 +198,11 @@ rule run_TPMCalculator:
         mem = "10",
         time = "34:00:00"
     params: 
-        gtf_anno = config["gtf"]
+        gtf_anno = config["gtf"],
+        in_file = "{sample_name}_Aligned.sortedByCoord.out.bam"
     message: "run_TPMCalculator {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
         cd results/mapped/
-        TPMCalculator -g {params.gtf_anno} -b {input[0]} -p -q 200 -e 
+        TPMCalculator -g {params.gtf_anno} -b {params.in_file} -p -q 200 -e 
         """
