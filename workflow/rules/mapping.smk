@@ -192,6 +192,7 @@ rule run_TPMCalculator:
     input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
     output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent"
     log:    "00log/run_TPMCalculator_{sample_name}.log"
+    conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 2,
         mem = "10",
