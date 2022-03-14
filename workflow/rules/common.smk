@@ -109,7 +109,8 @@ def all_input(wildcards):
                             [
                                 "results/trimmed/{sample}_trim_{read}.fastq.gz",
                                 "results/fastqc/{sample}_trim_{read}_fastqc.zip",
-                                
+                                "results/coverage/{sample_name}_fwd_CPM.bw", 
+                                "results/coverage/{sample_name}_rev_CPM.bw"
                             ],
                             sample = sample, read = read
                         )
@@ -123,9 +124,8 @@ def all_input(wildcards):
                             "results/quant/salmon_quant_{sample_name}/quant.sf",
                             "results/splicing/majiq/majiq_{sample_name}/build_{sample_name}/{sample_name}.sj",
                             "results/mapped/{sample_name}_Aligned.sortedByCoord.out_junc.bed",
-                            "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent",
-                            "results/coverage/{sample_name}_fwd_CPM.bw", 
-                            "results/coverage/{sample_name}_rev_CPM.bw"
+                            "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent"
+                            
                         ],
                         sample_name = sn
                     )
