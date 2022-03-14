@@ -154,7 +154,7 @@ if config["single_end"]:
 else:
     rule bamCoverage_CPM:
         input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
-        output: "results/coverage/fwd_{sample_name}_CPM.bw", "results/coverage/rev_{sample_name}_CPM.bw"
+        output: "results/coverage/{sample_name}_fwd_CPM.bw", "results/coverage/{sample_name}_rev_CPM.bw"
         log:  "00log/{sample_name}.bamCoverage"
         conda: "../envs/deeptools.yaml"
         resources:
