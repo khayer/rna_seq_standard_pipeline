@@ -174,17 +174,16 @@ else:
 rule run_regtools:
     input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
     output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out_junc.bed"
-    log:    "00log/run_regtools_{sample_name}.log"
+    log: "00log/run_regtools_{sample_name}.log"
+    conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 2,
         mem = "10",
         time = "24:00:00"
-    params: 
-        regtools = config["tools"]["regtools"]
     message: "run_regtools {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
-        {params.regtools} junctions extract -o {output[0]} {input[0]}
+        regtools junctions extract -o {output[0]} {input[0]}
         """
 
 ### calculate TPMs
