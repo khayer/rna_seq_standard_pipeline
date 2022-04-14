@@ -1,19 +1,30 @@
-# UNDER CONSTRUCTION
+---- UNDER CONSTRUCTION ----
 
 
 # rna_seq_standard_pipeline
 
-
-
-Snakemake workflow to analyze bulk RNA-seq 
-
-This is largerly inspired by https://github.com/snakemake-workflows.
+Snakemake workflow to analyze bulk RNA-seq. This is largerly inspired by https://github.com/snakemake-workflows.
 
 ## Samples config 
 
 The sample spreadsheet specified in config.yaml has to be formatted like:
 
 ![example spreadsheet](misc/example_sample_table.png)
+
+The config file should hold the following fields (this example is for hg38, but can be replaced for any other version/ species):
+
+```bash
+(snakemake) [hayerk@reslnvvhpc041 endpoints]$ head config/config.yaml
+samples: config/SraRunTable.csv
+star_index: /path/to/GENCODE_GRCh38.p13
+salmon_index: /path/to/gencode.v30.transcripts_salmon
+blacklist: /path/to/hg38-blacklist.v2.bed
+gtf: /path/to/gencode.v32.primary_assembly.annotation.gtf
+gff3: /path/to/gencode.v32.primary_assembly.annotation.gff3
+tmp_dir: /scr1/users/hayerk/tmp
+single_end: False
+stranded: False
+```
 
 ## Folder structure
 
