@@ -57,3 +57,8 @@ stranded: False
     snakemake --configfile config/config.yaml --use-conda --rulegraph | dot -Tsvg > dag.svg
 
 ![example dag](misc/dag.svg)
+
+## TODO
+
+- Fix strand information (especially in regtools!)
+
