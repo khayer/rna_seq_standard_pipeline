@@ -40,7 +40,7 @@ stranded: False
     (snakemake) [hayerk@reslnvvhpc041 endpoints]$ head ~/.config/snakemake/slurm/config.yaml
     jobs: 500
     cluster: "sbatch -t {resources.time} --mem={resources.mem}G -c {resources.cpu} -J sm_{rule} -o logs_slurm/{rule}_{wildcards}.o -e logs_slurm/{rule}_{wildcards}.e" #--mail-type=FAIL --mail-user=hayerk@chop.edu"
-    default-resources: [ mem=2000, time=60, cpu=1]
+    default-resources: [ mem=10, time=60, cpu=1]
     #resources: [cpus=30, mem_mb=500000]
 	
 ## Testing 
