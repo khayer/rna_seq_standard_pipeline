@@ -123,6 +123,7 @@ def all_input(wildcards):
                             #"results/splicing/majiq/majiq_{sample_name}/build_{sample_name}/{sample_name}.sj",
                             "results/mapped/{sample_name}_Aligned.sortedByCoord.out_junc.bed",
                             "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent",
+                            "results/mapped/{sample_name}_selected_genes.bam",
                             "results/coverage/{sample_name}_fwd_CPM.bw", 
                             "results/coverage/{sample_name}_rev_CPM.bw"
                             

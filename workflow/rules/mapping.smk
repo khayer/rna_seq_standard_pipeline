@@ -205,3 +205,23 @@ rule run_TPMCalculator:
         cd results/mapped/
         TPMCalculator -g {params.gtf_anno} -b {params.in_file} -p -q 200 -e 
         """
+
+
+### bam files for selected genes
+rule run_bam_selected_genes:
+    input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+    output: "results/mapped/{sample_name}_selected_genes.bam", "results/mapped/{sample_name}_selected_genes.bam.bai"
+    log:    "00log/run_run_bam_selected_genes_{sample_name}.log"
+    conda: "../envs/bioinf_tools.yaml"
+    resources: 
+        cpu = 2,
+        mem = "10",
+        time = "34:00:00"
+    params: 
+        selected_genes = "../../resources/selected_genes.bed"
+    message: "run_bam_selected_genes {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        samtools view -b -q 20 -f 3 -L genes.bed  {input[0]} > {output[0]}
+        samtools index {output[0]}
+        """
