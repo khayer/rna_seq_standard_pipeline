@@ -222,6 +222,6 @@ rule run_bam_selected_genes:
     message: "run_bam_selected_genes {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
-        samtools view -b -q 20 -f 3 -L genes.bed  {input[0]} > {output[0]}
+        samtools view -b -q 20 -f 3 -L {params.selected_genes}  {input[0]} > {output[0]}
         samtools index {output[0]}
         """
