@@ -22,7 +22,7 @@ rule trimming_single:
     conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 10,
-        mem = "20G",
+        mem = "20",
         time = "44:00:00"
     params: 
         options = "ktrim=r k=23 mink=11 hdist=1 minlength=35 tpe tbo qtrim=r trimq=20 qin=33" 
