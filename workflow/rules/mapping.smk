@@ -218,7 +218,7 @@ rule run_bam_selected_genes:
         mem = "10",
         time = "34:00:00"
     params: 
-        selected_genes = confif["selected_genes"]
+        selected_genes = config["selected_genes"]
     message: "run_bam_selected_genes {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """

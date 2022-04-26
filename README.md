@@ -54,7 +54,7 @@ stranded: False
 
 ## Make this rulegraph
 
-    snakemake --configfile config/config.yaml --use-conda --rulegraph | dot -Tsvg > dag.svg
+    snakemake --configfile config/config.yaml --use-conda --rulegraph | dot -Tsvg > misc/dag.svg
 
 ![example dag](misc/dag.svg)
 
