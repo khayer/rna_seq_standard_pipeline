@@ -5,4 +5,6 @@ blacklist: /home/hayerk/data/index/hg38-blacklist.v2.bed
 gff3: /home/hayerk/data/index/GRCh38.p13/gencode.v32.primary_assembly.annotation.gff3
 gtf: /home/hayerk/data/index/GRCh38.p13/gencode.v32.primary_assembly.annotation.gtf
 tmp_dir: /scr1/users/hayerk/tmp
+selected_genes: /mnt/isilon/thomas-tikhonenko_lab/data/index/selected_genes.bed
 single_end: False
+stranded: False
