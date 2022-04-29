@@ -47,3 +47,18 @@ rule run_merge_junctions_STAR:
     message: "run_merge_junctions_STAR {params}: {resources.cpu} threads / {resources.mem}"
     script:
         "../scripts/merge_STAR_junctions.py"
+
+rule run_merge_gene_tpms:
+    input: get_all_gene_tpm_files
+    output: "results/quant/all_gene_tmps.csv"
+    log:    "00log/run_merge_gene_tpms.log"
+    #conda: "../envs/bioinf_tools.yaml"
+    resources: 
+        cpu = 2,
+        mem = "20",
+        time = "24:00:00"
+    params: "results/mapped/", config["gtf"]
+    message: "run_merge_gene_tpms {params}: {resources.cpu} threads / {resources.mem}"
+    script:
+        "../scripts/merge_gene_TPMs.py"
+        

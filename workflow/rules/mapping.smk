@@ -119,7 +119,7 @@ else:
         conda: "../envs/salmon.yaml"
         resources: 
             cpu = 10,
-            mem = "20",
+            mem = "40",
             time = "12:00:00"
         params: 
             salmon_index = config["salmon_index"],
