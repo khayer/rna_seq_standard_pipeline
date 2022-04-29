@@ -1,8 +1,8 @@
 import os
 import sys
 
-with open(snakemake.log[0], "w") as f:
-    sys.stderr = sys.stdout = f
+with open(snakemake.log[0], "w") as log_file:
+    sys.stderr = sys.stdout = log_file
 
     import pandas as pd
     
@@ -56,7 +56,7 @@ with open(snakemake.log[0], "w") as f:
     
     print("ALL GOOD")
     
-    junc_df.to_csv(outfile + "_kat_version.csv")
+    #junc_df.to_csv(outfile + "_kat_version.csv")
     
     ## CHANGE FORMAT
     #(snakemake) [hayerk@reslnvvhpc040 cluster_training]$ head results/quant/all_star_junctions.csv
