@@ -11,7 +11,7 @@ def process_file(f, path):
     #n = f.split("/")[1]
     n = f.replace("_Aligned.sortedByCoord.out_genes.out","")
     #
-    log_file.print(n) 
+    log_file.write(n + "\n") 
     df.rename(columns={'TPM': 'TPM_' + n, 'Reads': 'Reads_' + n}, inplace=True)
     df = df.iloc[:,4:6]
     
@@ -35,7 +35,7 @@ anno.head()
 
 frames = [ process_file(f,dir_TPM) for f in all_TPM_files ]
 result = pd.concat(frames, axis=1, join='outer')
-log_file.print(result.head())
+log_file.write(result.head() + "\n")
 
 # write to file 
 results_final = result
