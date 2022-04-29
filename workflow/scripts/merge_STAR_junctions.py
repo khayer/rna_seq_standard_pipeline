@@ -7,11 +7,11 @@ log_file = open(snakemake.log[0], 'w')
 #args = sys.argv
 #args[1] should hold the directory with junction files
 dir_junc = snakemake.params[0]
-log_file.write(dir_junc)
+log_file.write(dir_junc + "\n")
 
 #args[2] should name and directory of the output file
 outfile = snakemake.output[0]
-log_file.write(outfile)
+log_file.write(outfile + "\n")
 #all_junc_files = os.listdir(dir_junc)
 #all_junc_files = [name for name in all_junc_files if '_SJ.out.tab' in name]
 #len(all_junc_files)
@@ -51,7 +51,7 @@ for f in all_junc_files:
     c_junc_df = c_junc_df.loc[:,("chr","start","stop","unique","norm","sample_name")]
     junc_df  = pd.concat([junc_df, c_junc_df])
 
-log_file.write("ALL GOOD")
+log_file.write("ALL GOOD\n")
 
 #junc_df.to_csv(outfile + "_kat_version.csv")
 
@@ -66,6 +66,7 @@ log_file.write("ALL GOOD")
 #24,chr1,17526,188049,10,0.3071692504412947,SLN2420
 
 pivot_df = junc_df.pivot_table(index = ["chr","start", "stop"], columns="sample_name", values = "norm").fillna(0)
-log_file.write("Pivot done")
+log_file.write("Pivot done\n")
 
 pivot_df.to_csv(outfile)
+log_file.close()
