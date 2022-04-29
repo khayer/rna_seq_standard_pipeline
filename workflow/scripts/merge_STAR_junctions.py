@@ -5,9 +5,12 @@ import sys
 
 #args = sys.argv
 #args[1] should hold the directory with junction files
-dir_junc = snakemake.params
+dir_junc = snakemake.params[0]
+print(dir_junc)
+
 #args[2] should name and directory of the output file
 outfile = snakemake.output[0]
+print(outfile)
 all_junc_files = os.listdir(dir_junc)
 all_junc_files = [name for name in all_junc_files if '_SJ.out.tab' in name]
 #len(all_junc_files)
