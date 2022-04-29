@@ -1,9 +1,12 @@
 import os
-import pandas as pd
 import sys
 
 with open(snakemake.log[0], "w") as f:
     sys.stderr = sys.stdout = f
+
+    import pandas as pd
+    
+
     #args = sys.argv
     #args[1] should hold the directory with junction files
     dir_junc = snakemake.params[0]
@@ -67,4 +70,3 @@ with open(snakemake.log[0], "w") as f:
     
     pivot_df = junc_df.pivot_table(index = ["chr","start", "stop"], columns="sample_name", values = "norm").fillna(0)
     pivot_df.to_csv(outfile)
-    
