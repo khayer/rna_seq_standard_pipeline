@@ -45,4 +45,4 @@ rule run_merge_junctions_STAR:
     params: "results/mapped/"
     message: "run_merge_junctions_STAR {params}: {resources.cpu} threads / {resources.mem}"
     script:
-        "scripts/merge_STAR_junctions.py"
+        "../scripts/merge_STAR_junctions.py"
