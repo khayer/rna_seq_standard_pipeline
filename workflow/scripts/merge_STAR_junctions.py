@@ -51,6 +51,18 @@ for f in all_junc_files:
     junc_df  = pd.concat([junc_df, c_junc_df])
 
 print("ALL GOOD")
-junc_df.to_csv(outfile)
 
+junc_df.to_csv(outfile + "_kat_version.csv")
 
+## CHANGE FORMAT
+#(snakemake) [hayerk@reslnvvhpc040 cluster_training]$ head results/quant/all_star_junctions.csv
+#,chr,start,stop,unique,norm,sample_name
+#5,chr1,14830,14969,110,3.3788617548542415,SLN2420
+#10,chr1,15039,15795,30,0.9215077513238841,SLN2420
+#11,chr1,15174,185616,6,0.1843015502647768,SLN2420
+#14,chr1,15948,16606,6,0.1843015502647768,SLN2420
+#17,chr1,16766,16857,7,0.21501847530890628,SLN2420
+#24,chr1,17526,188049,10,0.3071692504412947,SLN2420
+
+pivot_df = junc_df.pivot_table(index = ["chr","start", "stop"], columns="SRA", values = "norm").fillna(0)
+pivot_df.to_csv(outfile)
