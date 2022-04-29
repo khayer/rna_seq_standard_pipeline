@@ -64,5 +64,5 @@ junc_df.to_csv(outfile + "_kat_version.csv")
 #17,chr1,16766,16857,7,0.21501847530890628,SLN2420
 #24,chr1,17526,188049,10,0.3071692504412947,SLN2420
 
-pivot_df = junc_df.pivot_table(index = ["chr","start", "stop"], columns="SRA", values = "norm").fillna(0)
+pivot_df = junc_df.pivot_table(index = ["chr","start", "stop"], columns="sample_name", values = "norm").fillna(0)
 pivot_df.to_csv(outfile)
