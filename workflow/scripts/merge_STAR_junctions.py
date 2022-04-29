@@ -49,13 +49,8 @@ for f in all_junc_files:
    
     c_junc_df = c_junc_df.loc[:,("chr","start","stop","unique","norm","sample_name")]
     junc_df  = pd.concat([junc_df, c_junc_df])
-    
 
-junc_df.SRA.unique().shape
-    
-
-junc_df.shape
-
+print("ALL GOOD")
 junc_df.to_csv(outfile)
 
 
