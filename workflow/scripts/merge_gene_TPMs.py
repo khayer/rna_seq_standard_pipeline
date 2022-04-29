@@ -36,7 +36,7 @@ anno_genes_chrY = anno_genes[anno_genes["seqname"] == "Y"]
 log_file.write("got passed reading annotation\n")
 
 frames = [ process_file(f,dir_TPM) for f in all_TPM_files ]
-result = pd.concat(frames, axis=1, join='outer', ignore_index=True)
+result = pd.concat(frames, axis=1, join='outer')
 
 log_file.write("got passed merging results\n")
 
