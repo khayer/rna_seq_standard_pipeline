@@ -109,8 +109,7 @@ def all_input(wildcards):
                 expand (
                         [
                             "results/trimmed/{sample}_trim.fastq.gz",
-                            "results/fastqc/{sample}_trim_fastqc.zip",
-                            "results/coverage/{sample}_CPM.bw"
+                            "results/fastqc/{sample}_trim_fastqc.zip"
                         ],
                         sample = sample
                     )
@@ -121,9 +120,7 @@ def all_input(wildcards):
                         expand (
                             [
                                 "results/trimmed/{sample}_trim_{read}.fastq.gz",
-                                "results/fastqc/{sample}_trim_{read}_fastqc.zip",
-                                "results/coverage/{sample}_fwd_CPM.bw", 
-                                "results/coverage/{sample}_rev_CPM.bw"
+                                "results/fastqc/{sample}_trim_{read}_fastqc.zip"
                             ],
                             sample = sample, read = read
                         )
