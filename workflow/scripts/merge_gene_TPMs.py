@@ -31,18 +31,20 @@ anno = read_gtf(snakemake.params[1])
 # filter DataFrame to gene entries on chrY
 anno_genes = anno[anno["feature"] == "gene"]
 anno_genes_chrY = anno_genes[anno_genes["seqname"] == "Y"]
-anno.head()
+#anno.head()
+log_file.write("got passed reading annotation")
 
 frames = [ process_file(f,dir_TPM) for f in all_TPM_files ]
 result = pd.concat(frames, axis=1, join='outer')
-log_file.write(result.head() + "\n")
+
+log_file.write("got passed merging results")
 
 # write to file 
-results_final = result
-filter_col = [col for col in results_final if col.startswith('TPM')]
-results_final[filter_col].join(anno_genes).to_csv(outfile,float_format = '{:.0f}'.format)
+#results_final = result
+filter_col = [col for col in result if col.startswith('TPM')]
+result[filter_col].join(anno_genes).to_csv(outfile,float_format = '{:.0f}'.format)
 
-filter_col = [col for col in results_final if col.startswith('Reads_')]
-results_final[filter_col].join(anno_genes).to_csv(outfile + "_Reads.csv",float_format = '{:.0f}'.format)
+filter_col = [col for col in result if col.startswith('Reads_')]
+result[filter_col].join(anno_genes).to_csv(outfile + "_Reads.csv",float_format = '{:.0f}'.format)
 
 log_file.close()
