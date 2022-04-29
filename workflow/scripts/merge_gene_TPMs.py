@@ -14,7 +14,7 @@ def process_file(f, path):
     log_file.write(n + "\n") 
     df.rename(columns={'TPM': 'TPM_' + n, 'Reads': 'Reads_' + n}, inplace=True)
     df = df.iloc[:,4:6]
-    log_file.write(df.columns)
+    #log_file.write(df.columns)
     
     return df
 
