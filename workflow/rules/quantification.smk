@@ -41,7 +41,7 @@ rule run_merge_junctions_STAR:
     #conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 2,
-        mem = "10",
+        mem = "20",
         time = "24:00:00"
     params: "results/mapped/"
     message: "run_merge_junctions_STAR {params}: {resources.cpu} threads / {resources.mem}"
