@@ -11,7 +11,7 @@ include: "rules/splicing.smk"
 include: "rules/quantification.smk"
 
 rule all:
-    input: all_input
+    input: all_input , "results/multiqc_report.html"
 
 if not os.path.exists("00log"):
     os.makedirs("00log")

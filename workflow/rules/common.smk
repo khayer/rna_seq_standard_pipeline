@@ -181,3 +181,22 @@ def all_input(wildcards):
     wanted_input.extend(["results/quant/all_gene_tmps.csv"])
     return wanted_input
     
+
+### run multiqc at the very end
+rule run_multiqc:
+    input: all_input
+    output: "results/multiqc_report.html"
+    log:    "00log/run_multiqc.log"
+    conda: "../envs/python_tools.yaml"
+    resources: 
+        cpu = 2,
+        mem = "10",
+        time = "34:00:00"
+    params: 
+        selected_genes = config["selected_genes"]
+    message: "run_multiqc {input[0]}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        cd results
+        multiqc .
+        """
