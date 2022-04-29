@@ -20,7 +20,7 @@ junctions = pd.read_csv(dir_junc + all_junc_files[0], sep = "\t", header = None,
 	usecols = [0,1,2,3,5,6,7,8],
 	names = ["chr","start","stop","strand","annotated","unique","multi","max"])
 #junctions.head()
-
+all_reads = junctions['unique'].sum()
 junctions["norm"] = junctions["unique"]/(all_reads / 1000000)
 
 junc_df = junctions.loc[:,("chr","start","stop","unique","norm")]
