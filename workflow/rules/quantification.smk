@@ -17,7 +17,7 @@ rule run_regtools:
 ### calculate TPMs
 rule run_TPMCalculator:
     input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
-    output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent"
+    output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent","results/mapped/{sample}_Aligned.sortedByCoord.out_genes.out"
     log:    "00log/run_TPMCalculator_{sample_name}.log"
     conda: "../envs/bioinf_tools.yaml"
     resources: 

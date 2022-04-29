@@ -99,7 +99,7 @@ def get_all_gene_tpm_files(wildcards):
     for r in run_ids:
         out.extend ( 
             expand ( [
-                "results/mapped/{sample}_Aligned.sortedByCoord.out_genes.ent",
+                "results/mapped/{sample}_Aligned.sortedByCoord.out_genes.out",
             ], sample = r
             )
         )
