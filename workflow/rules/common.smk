@@ -129,6 +129,28 @@ def all_input(wildcards):
                         )
                     )
 
+    for sample in samples.sample_name:
+        if config["single_end"]:
+            wanted_input.extend(
+                expand (
+                        [
+                            "results/coverage/{sample}_CPM.bw"
+                        ],
+                        sample = sample
+                    )
+                )
+        else:
+            for read in ["1","2"]:
+                wanted_input.extend(
+                        expand (
+                            [
+                                "results/coverage/{sample}_fwd_CPM.bw", 
+                                "results/coverage/{sample}_rev_CPM.bw"
+                            ],
+                            sample = sample, read = read
+                        )
+                    )
+
     for sn in samples.sample_name:
         wanted_input.extend(
                     expand (
