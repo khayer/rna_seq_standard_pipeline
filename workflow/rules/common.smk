@@ -80,7 +80,7 @@ def get_sj_files(wildcards):
     return out
 
 def get_all_star_junctions_files(wildcards):
-    print(wildcards)
+    #print(wildcards)
     run_ids = samples["sample_name"].tolist()
     out = []
     for r in run_ids:
