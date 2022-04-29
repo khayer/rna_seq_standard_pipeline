@@ -38,6 +38,7 @@ rule run_merge_junctions_STAR:
     input: get_all_star_junctions_files
     output: "results/quant/all_star_junctions.csv"
     log:    "00log/run_merge_junctions_STAR.log"
+    conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 2,
         mem = "10",
