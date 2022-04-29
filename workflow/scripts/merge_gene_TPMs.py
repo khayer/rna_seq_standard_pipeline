@@ -14,6 +14,7 @@ def process_file(f, path):
     log_file.write(n + "\n") 
     df.rename(columns={'TPM': 'TPM_' + n, 'Reads': 'Reads_' + n}, inplace=True)
     df = df.iloc[:,4:6]
+    log_file.write(df.columns)
     
     return df
 
@@ -32,12 +33,12 @@ anno = read_gtf(snakemake.params[1])
 anno_genes = anno[anno["feature"] == "gene"]
 anno_genes_chrY = anno_genes[anno_genes["seqname"] == "Y"]
 #anno.head()
-log_file.write("got passed reading annotation")
+log_file.write("got passed reading annotation\n")
 
 frames = [ process_file(f,dir_TPM) for f in all_TPM_files ]
-result = pd.concat(frames, axis=1, join='outer')
+result = pd.concat(frames, axis=1, join='outer', ignore_index=True)
 
-log_file.write("got passed merging results")
+log_file.write("got passed merging results\n")
 
 # write to file 
 #results_final = result
