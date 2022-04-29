@@ -1,0 +1,9 @@
+name: python_tools
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - snakemake
+  - pandas
+  - gtfparse
+  - multiqc

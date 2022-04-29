@@ -1,6 +1,8 @@
 import os
 import sys
 import pandas as pd
+from gtfparse import read_gtf
+
 
 log_file = open(snakemake.log[0], 'w')
 

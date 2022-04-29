@@ -52,7 +52,7 @@ rule run_merge_gene_tpms:
     input: get_all_gene_tpm_files
     output: "results/quant/all_gene_tmps.csv"
     log:    "00log/run_merge_gene_tpms.log"
-    #conda: "../envs/bioinf_tools.yaml"
+    conda: "../envs/python_tools.yaml"
     resources: 
         cpu = 2,
         mem = "20",
@@ -61,4 +61,4 @@ rule run_merge_gene_tpms:
     message: "run_merge_gene_tpms {params}: {resources.cpu} threads / {resources.mem}"
     script:
         "../scripts/merge_gene_TPMs.py"
-        
+
