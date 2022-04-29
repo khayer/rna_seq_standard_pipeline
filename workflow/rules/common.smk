@@ -79,6 +79,19 @@ def get_sj_files(wildcards):
         )
     return out
 
+def get_all_star_junctions_files(wildcards):
+    print(wildcards)
+    run_ids = samples["sample_name"].tolist()
+    out = []
+    for r in run_ids:
+        out.extend ( 
+            expand ( [
+                "results/mapped/{sample}_SJ.out.tab"
+            ], sample = r
+            )
+        )
+    return out
+
 
 def all_input(wildcards):
 
@@ -131,6 +144,7 @@ def all_input(wildcards):
                         sample_name = sn
                     )
                 )
-
+    ## get merged files
+    wanted_input.extend(["results/quant/all_star_junctions.csv"])
     return wanted_input
     

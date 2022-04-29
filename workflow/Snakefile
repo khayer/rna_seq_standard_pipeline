@@ -8,6 +8,7 @@ include: "rules/common.smk"
 #include: "rules/cutadapt.smk"
 include: "rules/mapping.smk"
 include: "rules/splicing.smk"
+include: "rules/quantification.smk"
 
 rule all:
     input: all_input

@@ -3,11 +3,11 @@ import pandas as pd
 import sys
 
 
-args = sys.argv
+#args = sys.argv
 #args[1] should hold the directory with junction files
-dir_junc = args[1]
+dir_junc = snakemake.params
 #args[2] should name and directory of the output file
-outfile = args[2]
+outfile = snakemake.output[0]
 all_junc_files = os.listdir(dir_junc)
 all_junc_files = [name for name in all_junc_files if '_SJ.out.tab' in name]
 #len(all_junc_files)
@@ -29,7 +29,7 @@ junc_df = pd.DataFrame(columns=junc_df.columns)
 
 for f in all_junc_files:
 
-    print(f)
+    #print(f)
     junctions.head()
     c_junc_df = pd.read_csv(dir_junc+f,
                             sep='\t',
