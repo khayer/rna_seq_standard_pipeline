@@ -3,6 +3,10 @@ import pandas as pd
 
 samples = pd.read_csv(config["samples"], sep=",", dtype = str).set_index("Run", drop=False)
 
+
+def get_mem_gb(wildcards, attempt):
+    return attempt * 60
+
 def get_raw_reads(wildcards):
     run_ids = samples[samples["Run"] == wildcards.sample]["Run"].tolist()
     out = []
@@ -182,6 +186,9 @@ def all_input(wildcards):
     return wanted_input
     
 
+
+
+
 ### run multiqc at the very end
 rule run_multiqc:
     input: all_input
@@ -198,5 +205,5 @@ rule run_multiqc:
     shell:
         """
         cd results
-        multiqc .
+        multiqc . 
         """

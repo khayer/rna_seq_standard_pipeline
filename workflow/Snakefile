@@ -21,3 +21,6 @@ if not os.path.exists("results"):
     os.makedirs("results")
 if not os.path.exists("results/coverage"):
     os.makedirs("results/coverage")
+
+
+localrules: run_merge_gene_tpms, run_multiqc

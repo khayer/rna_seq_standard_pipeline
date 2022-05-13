@@ -55,7 +55,7 @@ rule run_merge_gene_tpms:
     conda: "../envs/python_tools.yaml"
     resources: 
         cpu = 2,
-        mem = "20",
+        mem = "30",
         time = "24:00:00"
     params: "results/mapped/", config["gtf"]
     message: "run_merge_gene_tpms {params}: {resources.cpu} threads / {resources.mem}"

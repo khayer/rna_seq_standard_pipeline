@@ -67,6 +67,9 @@ rule fastqc_single:
         fastqc -t {resources.cpu} -o results/fastqc/ {input}
         """
 
+def get_mem_gb_star(wildcards, attempt):
+    return ((attempt * 60) - 10 ) * 1024 * 1024
+
 rule align:
     input: get_trimmed_reads
     output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai", "results/mapped/{sample_name}_SJ.out.tab"
@@ -74,18 +77,20 @@ rule align:
     conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 10,
-        mem = "60",
-        time = "44:00:00"
+        mem = get_mem_gb,
+        time = "44:00:00",
+        sort_mem = get_mem_gb_star
     params: 
         options = "--outFileNamePrefix results/mapped/{sample_name}_ --twopassMode Basic --outSAMtype BAM SortedByCoordinate --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --readFilesCommand zcat --quantMode GeneCounts",
         star_index = config["star_index"],
         tmp_dir = config["tmp_dir"],
         sample_name = "{sample_name}"
+        
     message: "aligning {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
         if [ -d {params.tmp_dir}/STAR_{params.sample_name} ]; then rm -r {params.tmp_dir}/STAR_{params.sample_name}; fi
-        STAR {params.options} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}/STAR_{params.sample_name}
+        STAR {params.options} --limitBAMsortRAM {resources.sort_mem} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}/STAR_{params.sample_name}
         samtools index {output}
         rm -r {params.tmp_dir}/STAR_{params.sample_name}
         """
