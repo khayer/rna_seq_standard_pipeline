@@ -94,6 +94,7 @@ rule align:
         STAR {params.options} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}/STAR_{params.sample_name}
         samtools sort -m 3G -@ {resources.cpu} results/mapped/{params.sample_name}_Aligned.out.bam > {output[0]}
         samtools index {output[0]} 
+        rm results/mapped/{params.sample_name}_Aligned.out.bam
         rm -r {params.tmp_dir}/STAR_{params.sample_name}
         """
 
