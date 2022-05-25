@@ -92,7 +92,7 @@ rule align:
         if [ -d {params.tmp_dir}/STAR_{params.sample_name} ]; then rm -r {params.tmp_dir}/STAR_{params.sample_name}; fi
         #STAR {params.options} --limitBAMsortRAM {resources.sort_mem} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}/STAR_{params.sample_name}
         STAR {params.options} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}/STAR_{params.sample_name}
-        samtools sort -m 3G -@ {resources.cpu} results/mapped/{params.sample_name}_Aligned.out.bam > {output[0]}
+        samtools sort -T {params.tmp_dir}/samtools_{params.sample_name} -m 3G -@ {resources.cpu} results/mapped/{params.sample_name}_Aligned.out.bam > {output[0]}
         samtools index {output[0]} 
         rm results/mapped/{params.sample_name}_Aligned.out.bam
         rm -r {params.tmp_dir}/STAR_{params.sample_name}
