@@ -81,7 +81,7 @@ rule align:
         time = "44:00:00",
         sort_mem = get_mem_gb_star
     params: 
-        options = "--outFileNamePrefix results/mapped/{sample_name}_ --twopassMode Basic --outSAMtype BAM SortedByCoordinate --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --readFilesCommand zcat --quantMode GeneCounts",
+        options = "--outFileNamePrefix results/mapped/{sample_name}_ --twopassMode Basic --outSAMtype BAM Unsorted --alignSJoverhangMin 8 --outSAMattributes All --outReadsUnmapped Fastx --readFilesCommand zcat --quantMode GeneCounts",
         star_index = config["star_index"],
         tmp_dir = config["tmp_dir"],
         sample_name = "{sample_name}"
@@ -90,8 +90,10 @@ rule align:
     shell:
         """
         if [ -d {params.tmp_dir}/STAR_{params.sample_name} ]; then rm -r {params.tmp_dir}/STAR_{params.sample_name}; fi
-        STAR {params.options} --limitBAMsortRAM {resources.sort_mem} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}/STAR_{params.sample_name}
-        samtools index {output}
+        #STAR {params.options} --limitBAMsortRAM {resources.sort_mem} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}/STAR_{params.sample_name}
+        STAR {params.options} --genomeDir {params.star_index} --runThreadN {resources.cpu} --readFilesIn {input} --outTmpDir {params.tmp_dir}/STAR_{params.sample_name}
+        samtools sort -m 3G -@ {resources.cpu} {params.sample_name}_Aligned.out.bam > {output}
+        samtools index {output} 
         rm -r {params.tmp_dir}/STAR_{params.sample_name}
         """
 
