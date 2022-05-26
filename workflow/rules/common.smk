@@ -205,5 +205,5 @@ rule run_multiqc:
     shell:
         """
         cd results
-        multiqc . 
+        multiqc -f . 
         """
