@@ -61,5 +61,4 @@ stranded: False
 ## TODO
 
 - Fix strand information (especially in regtools!)
-- Fix STAR sorting (with samtools so it does not run out of memory)
 
