@@ -140,7 +140,7 @@ else:
             """
 
 
-if config["single_end"]:
+if not config["stranded"]:
     rule bamCoverage_CPM_single:
         input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
         output: "results/coverage/{sample_name}_CPM.bw"
