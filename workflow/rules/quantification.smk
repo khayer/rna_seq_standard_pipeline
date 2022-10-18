@@ -15,24 +15,45 @@ rule run_regtools:
         """
 
 ### calculate TPMs
-rule run_TPMCalculator:
-    input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
-    output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent","results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.out"
-    log:    "00log/run_TPMCalculator_{sample_name}.log"
-    conda: "../envs/bioinf_tools.yaml"
-    resources: 
-        cpu = 2,
-        mem = "10",
-        time = "34:00:00"
-    params: 
-        gtf_anno = config["gtf"],
-        in_file = "{sample_name}_Aligned.sortedByCoord.out.bam"
-    message: "run_TPMCalculator {input}: {resources.cpu} threads / {resources.mem}"
-    shell:
-        """
-        cd results/mapped/
-        TPMCalculator -g {params.gtf_anno} -b {params.in_file} -p -q 200 -e 
-        """
+if config["single_end"]:
+    rule run_TPMCalculator:
+        input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+        output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent","results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.out"
+        log:    "00log/run_TPMCalculator_{sample_name}.log"
+        conda: "../envs/bioinf_tools.yaml"
+        resources: 
+            cpu = 2,
+            mem = "10",
+            time = "34:00:00"
+        params: 
+            gtf_anno = config["gtf"],
+            in_file = "{sample_name}_Aligned.sortedByCoord.out.bam"
+        message: "run_TPMCalculator {input}: {resources.cpu} threads / {resources.mem}"
+        shell:
+            """
+            cd results/mapped/
+            TPMCalculator -g {params.gtf_anno} -b {params.in_file} -q 200 -e 
+            """
+
+else:
+    rule run_TPMCalculator:
+        input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+        output: "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent","results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.out"
+        log:    "00log/run_TPMCalculator_{sample_name}.log"
+        conda: "../envs/bioinf_tools.yaml"
+        resources: 
+            cpu = 2,
+            mem = "10",
+            time = "34:00:00"
+        params: 
+            gtf_anno = config["gtf"],
+            in_file = "{sample_name}_Aligned.sortedByCoord.out.bam"
+        message: "run_TPMCalculator {input}: {resources.cpu} threads / {resources.mem}"
+        shell:
+            """
+            cd results/mapped/
+            TPMCalculator -g {params.gtf_anno} -b {params.in_file} -p -q 200 -e 
+            """
 
 rule run_merge_junctions_STAR:
     input: get_all_star_junctions_files
