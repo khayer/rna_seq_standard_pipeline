@@ -30,7 +30,7 @@ STAR is set to version
 
 Prepare STAR index example (make sure to provide the gtf file!):
 
-    STAR --runMode genomeGenerate --genomeDir hg38_ad5_myco_dros_2.7.9a_NEW/ --genomeFastaFiles Adenovirus-Ad5.fasta GRCh38.p13/GRCh38.primary_assembly.genome.fa Mycoplasma/myco.fa dm6_fixed.fa --runThreadN 8 --sjdbGTFfile /mnt/isilon/thomas-tikhonenko_lab/data/index/GRCh38.p13_kat/gencode.v32.primary_assembly.annotation.gtf
+    STAR --runMode genomeGenerate --genomeDir hg38_ad5_myco_dros_2.7.9a/ --genomeFastaFiles Adenovirus-Ad5.fasta GRCh38.p13/GRCh38.primary_assembly.genome.fa Mycoplasma/myco.fa dm6_fixed.fa --runThreadN 8 --sjdbGTFfile /mnt/isilon/thomas-tikhonenko_lab/data/index/GRCh38.p13_kat/gencode.v32.primary_assembly.annotation.gtf
 
 ## Folder structure
 
