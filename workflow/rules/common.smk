@@ -174,7 +174,10 @@ def all_input(wildcards):
                             #"results/splicing/majiq/majiq_{sample_name}/build_{sample_name}/{sample_name}.sj",
                             "results/mapped/{sample_name}_Aligned.sortedByCoord.out_junc.bed",
                             "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent",
-                            "results/mapped/{sample_name}_selected_genes.bam"
+                            "results/mapped/{sample_name}_selected_genes.bam",
+                            "results/mapped/{sample_name}_idxstats.txt", 
+                            "results/mapped/{sample_name}_flagstat.txt", 
+                            "results/mapped/{sample_name}_samtools_stats.txt"
                             
                         ],
                         sample_name = sn

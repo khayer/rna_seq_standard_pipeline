@@ -198,3 +198,27 @@ rule run_bam_selected_genes:
         samtools view -b -q 20 -f 3 -L {params.selected_genes}  {input[0]} > {output[0]}
         samtools index {output[0]}
         """
+
+
+### bam file stats
+rule run_bam_stats:
+    input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+    output: "results/mapped/{sample_name}_idxstats.txt", "results/mapped/{sample_name}_flagstat.txt", "results/mapped/{sample_name}_samtools_stats.txt"
+    log:    "00log/run_run_bam_stats_{sample_name}.log"
+    conda: "../envs/bioinf_tools.yaml"
+    resources: 
+        cpu = 4,
+        mem = "10",
+        time = "34:00:00"
+    params: 
+        selected_genes = config["selected_genes"]
+    message: "run_bam_selected_genes {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        samtools idxstats {input[0]} -@ 4 > {output[0]}
+        samtools flagstat {input[0]} -@ 4 > {output[1]}
+        samtools stats {input[0]} -@ 4 > {output[2]}
+        """
+
+
+
