@@ -144,7 +144,7 @@ def all_input(wildcards):
                     )
 
     for sample in samples.sample_name:
-        if config["single_end"]:
+        if not config["stranded"]:
             wanted_input.extend(
                 expand (
                         [
@@ -154,16 +154,15 @@ def all_input(wildcards):
                     )
                 )
         else:
-            for read in ["1","2"]:
-                wanted_input.extend(
-                        expand (
-                            [
-                                "results/coverage/{sample}_fwd_CPM.bw", 
-                                "results/coverage/{sample}_rev_CPM.bw"
-                            ],
-                            sample = sample, read = read
-                        )
+            wanted_input.extend(
+                    expand (
+                        [
+                            "results/coverage/{sample}_fwd_CPM.bw", 
+                            "results/coverage/{sample}_rev_CPM.bw"
+                        ],
+                        sample = sample
                     )
+                )
 
     for sn in samples.sample_name:
         wanted_input.extend(
