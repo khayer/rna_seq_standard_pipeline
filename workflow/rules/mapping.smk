@@ -141,10 +141,10 @@ else:
 
 
 if not config["stranded"]:
-    rule bamCoverage_CPM_single:
+    rule bamCoverage_CPM:
         input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
         output: "results/coverage/{sample_name}_CPM.bw"
-        log:  "00log/{sample_name}.bamCoverage_CPM_single"
+        log:  "00log/{sample_name}.bamCoverage_CPM"
         conda: "../envs/deeptools.yaml"
         resources:
             cpu = 4,
@@ -152,7 +152,7 @@ if not config["stranded"]:
             time = "12:00:00"
         params:
             blacklist = "--blackListFileName " + config["blacklist"]
-        message: "bamCoverage_CPM_single {input}: {resources.cpu} threads" #"/ {params.mem}"
+        message: "bamCoverage_CPM {input}: {resources.cpu} threads" #"/ {params.mem}"
         shell: 
             """
             bamCoverage -bs 1 -b {input[0]} -o {output[0]} -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 255
@@ -160,10 +160,10 @@ if not config["stranded"]:
 
 
 else:
-    rule bamCoverage_CPM:
+    rule bamCoverage_CPM_stranded:
         input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
         output: "results/coverage/{sample_name}_fwd_CPM.bw", "results/coverage/{sample_name}_rev_CPM.bw"
-        log:  "00log/{sample_name}.bamCoverage"
+        log:  "00log/{sample_name}.bamCoverage_stranded"
         conda: "../envs/deeptools.yaml"
         resources:
             cpu = 4,
@@ -171,7 +171,7 @@ else:
             time = "12:00:00"
         params:
             blacklist = "--blackListFileName " + config["blacklist"]
-        message: "CPM_bamCoverage_fwd_rev {input}: {resources.cpu} threads" #"/ {params.mem}"
+        message: "bamCoverage_CPM_stranded {input}: {resources.cpu} threads" #"/ {params.mem}"
         shell: 
             """
             bamCoverage -bs 1 -b {input[0]} -o {output[0]} --filterRNAstrand forward -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 255
