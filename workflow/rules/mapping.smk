@@ -149,7 +149,7 @@ if not config["stranded"]:
         resources:
             cpu = 4,
             mem = "10",
-            time = "12:00:00"
+            time = "32:00:00"
         params:
             blacklist = "--blackListFileName " + config["blacklist"]
         message: "bamCoverage_CPM {input}: {resources.cpu} threads" #"/ {params.mem}"
@@ -168,7 +168,7 @@ else:
         resources:
             cpu = 4,
             mem = "10",
-            time = "12:00:00"
+            time = "32:00:00"
         params:
             blacklist = "--blackListFileName " + config["blacklist"]
         message: "bamCoverage_CPM_stranded {input}: {resources.cpu} threads" #"/ {params.mem}"
