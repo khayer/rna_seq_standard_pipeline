@@ -67,7 +67,7 @@ rule run_merge_junctions_STAR:
     params: "results/mapped/"
     message: "run_merge_junctions_STAR {params}: {resources.cpu} threads / {resources.mem}"
     shell:
-        "{workflow.basedir}/scripts/merge_STAR_junctions.py"
+        "python3 {workflow.basedir}/scripts/merge_STAR_junctions.py"
 
 rule run_merge_gene_tpms:
     input: get_all_gene_tpm_files
