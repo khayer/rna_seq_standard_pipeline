@@ -18,7 +18,7 @@ print(outfile + "\n")
 #all_junc_files = [name for name in all_junc_files if '_SJ.out.tab' in name]
 #len(all_junc_files)
 all_junc_files = args[2:]
-all_junc_files = [sub.replace('results/mapped/', '') for sub in snakemake.input]
+all_junc_files = [sub.replace('results/mapped/', '') for sub in all_junc_files]
 junctions = pd.read_csv(dir_junc + all_junc_files[0], sep = "\t", header = None,
 	usecols = [0,1,2,3,5,6,7,8],
 	names = ["chr","start","stop","strand","annotated","unique","multi","max"])
