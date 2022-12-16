@@ -59,11 +59,11 @@ rule run_merge_junctions_STAR:
     input: get_all_star_junctions_files
     output: "results/quant/all_star_junctions.csv"
     log:    "00log/run_merge_junctions_STAR.log"
-    #conda: "../envs/bioinf_tools.yaml"
+    conda: "../envs/bioinf_tools.yaml"
     resources: 
         cpu = 2,
-        mem = "20",
-        time = "24:00:00"
+        mem = "40",
+        time = "44:00:00"
     params: "results/mapped/"
     message: "run_merge_junctions_STAR {params}: {resources.cpu} threads / {resources.mem}"
     script:

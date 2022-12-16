@@ -132,3 +132,4 @@ pkgs/*
 
 reads/*
 .snakemake/
+misc/feta_brain_final.csv
