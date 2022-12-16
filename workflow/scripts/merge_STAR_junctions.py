@@ -1,7 +1,6 @@
 import os
 import sys
 import pandas as pd
-from snakemake.io import glob_wildcards
 
 #log_file = open(snakemake.log[0], 'w')
 
