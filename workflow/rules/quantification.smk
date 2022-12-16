@@ -66,8 +66,8 @@ rule run_merge_junctions_STAR:
         time = "44:00:00"
     params: "results/mapped/"
     message: "run_merge_junctions_STAR {params}: {resources.cpu} threads / {resources.mem}"
-    script:
-        "../scripts/merge_STAR_junctions.py"
+    shell:
+        "python ../scripts/merge_STAR_junctions.py"
 
 rule run_merge_gene_tpms:
     input: get_all_gene_tpm_files
