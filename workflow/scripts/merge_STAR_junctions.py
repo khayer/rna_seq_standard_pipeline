@@ -5,6 +5,7 @@ import pandas as pd
 #log_file = open(snakemake.log[0], 'w')
 
 args = sys.argv
+args.pop(0)
 #args[0] should hold the directory with junction files
 dir_junc = args[0]
 print(dir_junc + "\n")
