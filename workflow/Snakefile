@@ -23,4 +23,4 @@ if not os.path.exists("results/coverage"):
     os.makedirs("results/coverage")
 
 
-localrules: run_merge_gene_tpms, run_multiqc #, run_merge_junctions_STAR
+localrules: run_merge_gene_tpms, run_multiqc
