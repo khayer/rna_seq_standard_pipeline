@@ -51,11 +51,11 @@ Prepare STAR index example (make sure to provide the gtf file!):
 	
 ## Testing 
     
-    snakemake --configfile config/config.yaml -n
+    snakemake --profile slurm -s ~/path/to/rna_seq_standard_pipeline/workflow/Snakefile -p --use-conda --configfile config/config.yaml -n
 
 ## Submit to cluster
 
-    snakemake --profile slurm -s ~/data/tools/rna_seq_standard_pipeline/workflow/Snakefile -p --use-conda --configfile config/config.yaml
+    snakemake --profile slurm -s ~/path/to/rna_seq_standard_pipeline/workflow/Snakefile -p --use-conda --configfile config/config.yaml
 
 
 ## Make this rulegraph
