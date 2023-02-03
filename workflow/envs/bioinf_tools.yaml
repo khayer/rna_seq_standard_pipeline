@@ -9,3 +9,5 @@ dependencies:
   - fastqc
   - tpmcalculator
   - regtools
+  - pandas
+  - gtfparse
