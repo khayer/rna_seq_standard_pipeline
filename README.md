@@ -45,17 +45,17 @@ Prepare STAR index example (make sure to provide the gtf file!):
 
     (snakemake) [hayerk@reslnvvhpc041 endpoints]$ head ~/.config/snakemake/slurm/config.yaml
     jobs: 500
-    cluster: "sbatch -t {resources.time} --mem={resources.mem}G -c {resources.cpu} -J sm_{rule} -o logs_slurm/{rule}_{wildcards}.o -e logs_slurm/{rule}_{wildcards}.e" #--mail-type=FAIL --mail-user=hayerk@chop.edu"
+    cluster: "sbatch -t {resources.time} --mem={resources.mem} -c {resources.cpu} -J sm_{rule} -o logs_slurm/{rule}_{wildcards}.o -e logs_slurm/{rule}_{wildcards}.e" #--mail-type=FAIL --mail-user=hayerk@chop.edu"
     default-resources: [ mem=10, time=60, cpu=1]
     #resources: [cpus=30, mem_mb=500000]
 	
 ## Testing 
     
-    snakemake --configfile config/config.yaml -n
+    snakemake --profile slurm -s ~/path/to/rna_seq_standard_pipeline/workflow/Snakefile -p --use-conda --configfile config/config.yaml -n
 
 ## Submit to cluster
 
-    snakemake --profile slurm -s ~/data/tools/rna_seq_standard_pipeline/workflow/Snakefile -p --use-conda --configfile config/config.yaml
+    snakemake --profile slurm -s ~/path/to/rna_seq_standard_pipeline/workflow/Snakefile -p --use-conda --configfile config/config.yaml
 
 
 ## Make this rulegraph
