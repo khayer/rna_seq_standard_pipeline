@@ -190,7 +190,6 @@ def all_input(wildcards):
 
 
 
-
 ### run multiqc at the very end
 rule run_multiqc:
     input: all_input
@@ -201,8 +200,6 @@ rule run_multiqc:
         cpu = 2,
         mem = "10",
         time = "34:00:00"
-    params: 
-        selected_genes = config["selected_genes"]
     message: "run_multiqc {input[0]}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
