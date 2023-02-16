@@ -240,6 +240,6 @@ rule run_bam_just_numbered_chr:
         """
         samtools view -b -q 20 -f 3 -L {params.numbered_chr}  {input[0]} > {output[0]}
         samtools index {output[0]}
-        samtools view -n {output[0]} > {params.number_of_reads}
+        samtools view -c {output[0]} > {params.number_of_reads}
         """
 
