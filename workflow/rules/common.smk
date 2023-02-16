@@ -174,6 +174,7 @@ def all_input(wildcards):
                             #"results/mapped/{sample_name}_Aligned.sortedByCoord.out_junc.bed",
                             "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent",
                             "results/mapped/{sample_name}_selected_genes.bam",
+                            "results/mapped/{sample_name}_numbered_chr.bam",
                             "results/mapped/{sample_name}_idxstats.txt", 
                             "results/mapped/{sample_name}_flagstat.txt", 
                             "results/mapped/{sample_name}_samtools_stats.txt"
