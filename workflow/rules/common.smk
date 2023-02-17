@@ -109,6 +109,19 @@ def get_all_gene_tpm_files(wildcards):
         )
     return out
 
+def get_all_gene_tpm_files_numbered_chr(wildcards):
+    #print(wildcards)
+    run_ids = samples["sample_name"].tolist()
+    out = []
+    for r in run_ids:
+        out.extend ( 
+            expand ( [
+                "results/mapped/{sample}_numbered_chr_genes.out",
+            ], sample = r
+            )
+        )
+    return out
+
 
 def all_input(wildcards):
 
@@ -186,6 +199,7 @@ def all_input(wildcards):
     ## get merged files
     wanted_input.extend(["results/quant/all_star_junctions.csv"])
     wanted_input.extend(["results/quant/all_gene_tmps.csv"])
+    wanted_input.extend(["results/quant/all_gene_tmps_numbered_chr.csv"])
     return wanted_input
     
 
