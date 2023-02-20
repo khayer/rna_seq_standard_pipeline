@@ -1,3 +1,5 @@
+# run me like
+# snakemake --profile slurm -s ~/data/tools/rna_seq_standard_pipeline/workflow/Snakefile -p --use-conda --configfile config/config.yaml --latency-wait 50  --rerun-triggers mtime -n
 samples: config/SraRunTable_fraction_rna.csv
 star_index: /home/hayerk/data/index/GRCh38.p13/GENCODE_GRCh38.p13
 salmon_index: /home/hayerk/data/index/gencode/gencode.v30.transcripts_salmon
