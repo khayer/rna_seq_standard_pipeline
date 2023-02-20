@@ -264,7 +264,7 @@ rule run_downsample_bam_prep:
 ### bam files for selected genes
 rule run_downsample_bam:
     input: "results/mapped/{sample_name}_numbered_chr.bam", "results/mapped/{sample_name}_numbered_chr.bam.bai", "results/downsample_spreadsheet.txt"
-    output: "results/mapped_down/{sample_name}_numbered_chr_down.bam", "results/v/{sample_name}_numbered_chr_down.bam.bai"
+    output: "results/mapped_down/{sample_name}_numbered_chr_down.bam", "results/mapped_down/{sample_name}_numbered_chr_down.bam.bai"
     log:    "00log/run_downsample_bam_{sample_name}.log"
     conda: "../envs/bioinf_tools.yaml"
     resources: 
