@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-04/schema#"
+#$schema: "http://json-schema.org/draft-04/schema#"
 
 description: All entries help identify samples and which experiment they belong to.
 properties:
@@ -13,7 +13,7 @@ properties:
     description: sample description that will be compared during differential expression analysis (e.g. a treatment, a tissue time, a disease)
   stranded:
     type: boolean
-    default: false
+    default: False
     description: boolean that indicates if sample is case or control
   background:
     type: string
