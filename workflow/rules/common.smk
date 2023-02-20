@@ -5,9 +5,9 @@ import pandas as pd
 validate(config, "../schemas/config.schema.yaml")
 
 samples = pd.read_csv(config["samples"], sep=",", dtype = str).set_index("Run", drop=False)
-if samples['stranded']:
+if 'stranded' in samples:
     samples['stranded'] = samples['stranded'].map({'True': True, 'False': False})
-if samples['batch']:
+if 'batch' in samples:
     samples['batch'] = samples['batch'].astype('int')
 #print(samples.head())
 validate(samples, "../schemas/samples.schema.yaml")
