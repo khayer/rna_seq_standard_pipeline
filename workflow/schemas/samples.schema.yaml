@@ -20,7 +20,7 @@ properties:
     default: experiment1
     description: used for downsampling if there is more than one background (such as different experiments)
   batch:
-    type: interger
+    type: integer
     default: 1
     description: used for batch correction
 required:
