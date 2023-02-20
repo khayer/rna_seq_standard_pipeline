@@ -4,10 +4,6 @@ import pandas as pd
 
 validate(config, "../schemas/config.schema.yaml")
 
-samples = pd.read_table(config["samples"]).set_index("sample", drop=False)
-print(samples.head())
-validate(samples, "../schemas/samples.schema.yaml")
-
 samples = pd.read_csv(config["samples"], sep=",", dtype = str).set_index("Run", drop=False)
 
 print(samples.head())
