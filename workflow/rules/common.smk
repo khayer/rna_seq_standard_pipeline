@@ -123,6 +123,34 @@ def get_all_gene_tpm_files_numbered_chr(wildcards):
     return out
 
 
+def get_all_read_counts(wildcards):
+    #print(wildcards)
+    run_ids = samples["sample_name"].tolist()
+    out = []
+    for r in run_ids:
+        out.extend ( 
+            expand ( [
+                "results/mapped/{sample}_numbered_chr_number_of_reads.txt"
+            ], sample = r
+            )
+        )
+    return out
+
+def get_all_gene_tpm_files_downsampled(wildcards):
+    #print(wildcards)
+    run_ids = samples["sample_name"].tolist()
+    out = []
+    for r in run_ids:
+        out.extend ( 
+            expand ( [
+                "results/mapped/{sample}_numbered_chr_down_genes.out",
+            ], sample = r
+            )
+        )
+    return out
+
+
+
 def all_input(wildcards):
 
     wanted_input = []
@@ -188,6 +216,7 @@ def all_input(wildcards):
                             "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent",
                             "results/mapped/{sample_name}_selected_genes.bam",
                             "results/mapped/{sample_name}_numbered_chr.bam",
+                            "results/mapped_down/{sample_name}_numbered_chr_down.bam",
                             "results/mapped/{sample_name}_idxstats.txt", 
                             "results/mapped/{sample_name}_flagstat.txt", 
                             "results/mapped/{sample_name}_samtools_stats.txt"
@@ -200,6 +229,7 @@ def all_input(wildcards):
     wanted_input.extend(["results/quant/all_star_junctions.csv"])
     wanted_input.extend(["results/quant/all_gene_tmps.csv"])
     wanted_input.extend(["results/quant/all_gene_tmps_numbered_chr.csv"])
+    wanted_input.extend(["results/quant/all_gene_tmps_numbered_chr_downsampled.csv"])
     return wanted_input
     
 

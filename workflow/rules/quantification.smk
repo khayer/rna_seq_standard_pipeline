@@ -93,6 +93,25 @@ else:
             TPMCalculator -g {params.gtf_anno} -b {params.in_file} -p -q 200 -e 
             """
 
+    rule run_TPMCalculator_downsampled:
+        input: "results/mapped_down/{sample_name}_numbered_chr_down.bam", "results/mapped_down/{sample_name}_numbered_chr_down.bam.bai"
+        output: "results/mapped_down/{sample_name}_numbered_chr_down_genes.ent","results/mapped_down/{sample_name}_numbered_chr_down_genes.out"
+        log:    "00log/run_TPMCalculator_downsampled_{sample_name}.log"
+        conda: "../envs/bioinf_tools.yaml"
+        resources: 
+            cpu = 2,
+            mem = "10",
+            time = "34:00:00"
+        params: 
+            gtf_anno = config["gtf"],
+            in_file = "{sample_name}_numbered_chr_down.bam"
+        message: "rrun_TPMCalculator_downsampled {input}: {resources.cpu} threads / {resources.mem}"
+        shell:
+            """
+            cd results/mapped_down/
+            TPMCalculator -g {params.gtf_anno} -b {params.in_file} -p -q 200 -e 
+            """
+
 rule run_merge_junctions_STAR:
     input: get_all_star_junctions_files
     output: "results/quant/all_star_junctions.csv"
@@ -132,6 +151,20 @@ rule run_merge_gene_tpms_numbered_chr:
         time = "24:00:00"
     params: "results/mapped/", config["gtf"]
     message: "run_merge_gene_tpms_numbered_chr {params}: {resources.cpu} threads / {resources.mem}"
+    script:
+        "../scripts/merge_gene_TPMs.py"
+
+rule run_merge_gene_tpms_numbered_downsampled:
+    input: get_all_gene_tpm_files_downsampled
+    output: "results/quant/all_gene_tmps_numbered_chr.csv"
+    log:    "00log/run_merge_gene_tpms_numbered_downsampled.log"
+    conda: "../envs/python_tools.yaml"
+    resources: 
+        cpu = 2,
+        mem = "30",
+        time = "24:00:00"
+    params: "results/mapped/", config["gtf"]
+    message: "run_merge_gene_tpms_numbered_downsampled {params}: {resources.cpu} threads / {resources.mem}"
     script:
         "../scripts/merge_gene_TPMs.py"
 
