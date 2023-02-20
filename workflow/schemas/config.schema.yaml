@@ -39,3 +39,5 @@ required:
   - gtf_introns
   - selected_genes
   - numbered_chr
+  - single_end
+  - stranded

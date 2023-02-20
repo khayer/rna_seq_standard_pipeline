@@ -1,7 +1,7 @@
 from snakemake.utils import validate
 import pandas as pd
 
-
+print(config.head())
 validate(config, "../schemas/config.schema.yaml")
 
 samples = pd.read_csv(config["samples"], sep=",", dtype = str).set_index("Run", drop=False)
