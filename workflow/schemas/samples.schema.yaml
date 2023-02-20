@@ -12,7 +12,7 @@ properties:
     type: string
     description: sample description that will be compared during differential expression analysis (e.g. a treatment, a tissue time, a disease)
   stranded:
-    type: bool
+    type: boolean
     default: false
     description: boolean that indicates if sample is case or control
   background:
