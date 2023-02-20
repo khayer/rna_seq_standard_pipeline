@@ -1,4 +1,5 @@
-$schmema: rna_samples
+$schema: "http://json-schema.org/draft-04/schema#"
+
 description: All entries help identify samples and which experiment they belong to.
 properties:
   Run:
