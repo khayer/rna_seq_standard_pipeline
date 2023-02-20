@@ -7,8 +7,12 @@ validate(config, "../schemas/config.schema.yaml")
 samples = pd.read_csv(config["samples"], sep=",", dtype = str).set_index("Run", drop=False)
 if 'stranded' in samples:
     samples['stranded'] = samples['stranded'].map({'True': True, 'False': False})
+else:
+    samples['stranded'] = False
 if 'batch' in samples:
     samples['batch'] = samples['batch'].astype('int')
+else:
+    samples['batch'] = 1
 #print(samples.head())
 validate(samples, "../schemas/samples.schema.yaml")
 
