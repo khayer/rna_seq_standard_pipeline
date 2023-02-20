@@ -1,7 +1,15 @@
 from snakemake.utils import validate
 import pandas as pd
 
+
+validate(config, "../schema/config.schema.yaml")
+
+samples = pd.read_table(config["samples"]).set_index("sample", drop=False)
+validate(samples, "../schema/samples.schema.yaml")
+
 samples = pd.read_csv(config["samples"], sep=",", dtype = str).set_index("Run", drop=False)
+
+
 
 
 def get_mem_gb(wildcards, attempt):

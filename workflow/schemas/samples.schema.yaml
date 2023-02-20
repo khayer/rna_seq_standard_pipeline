@@ -1,0 +1,28 @@
+$schmema: rna_samples
+description: All entries help identify samples and which experiment they belong to.
+properties:
+  Run:
+    type: string
+    description: can be same as sample_name. Mostly used for SRA samples
+  sample_name:
+    type: string
+    description: unique sample_name
+  group:
+    type: string
+    description: sample description that will be compared during differential expression analysis (e.g. a treatment, a tissue time, a disease)
+  stranded:
+    type: boolean
+    default: false
+    description: boolean that indicates if sample is case or control
+  background:
+    type: string
+    default: experiment1
+    description: used for downsampling if there is more than one background (such as different experiments)
+  batch:
+    type: interger
+    default: 1
+    description: used for batch correction
+required:
+  - Run
+  - sample_name
+  - group

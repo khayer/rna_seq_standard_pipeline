@@ -1,0 +1,41 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+description: snakemake configuration file
+
+type: object
+
+# possible entries of the config file and which type they should be
+properties:
+  samples:
+    type: string
+  star_index:
+    type: string
+  salmon_index:
+    type: string
+  blacklist:
+    type: string
+  gtf:
+    type: string
+  gtf_introns:
+    type: string
+  tmp_dir:
+    type: string
+  selected_genes:
+    type: string
+  numbered_chr: 
+    type: string
+  single_end: 
+    type: boolean
+  stranded:
+    type: boolean
+
+# entries that have to be in the config file for successful validation
+required:
+  - samples
+  - star_index
+  - salmon_index
+  - blacklist
+  - gtf
+  - gtf_introns
+  - selected_genes
+  - numbered_chr
