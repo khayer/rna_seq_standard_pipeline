@@ -143,7 +143,7 @@ def get_all_gene_tpm_files_downsampled(wildcards):
     for r in run_ids:
         out.extend ( 
             expand ( [
-                "results/mapped/{sample}_numbered_chr_down_genes.out",
+                "results/mapped_down/{sample}_numbered_chr_down_genes.out",
             ], sample = r
             )
         )
