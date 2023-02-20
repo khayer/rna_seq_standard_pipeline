@@ -1,13 +1,15 @@
 from snakemake.utils import validate
 import pandas as pd
 
-print(config)
+#print(config)
 validate(config, "../schemas/config.schema.yaml")
 
 samples = pd.read_csv(config["samples"], sep=",", dtype = str).set_index("Run", drop=False)
-samples['stranded'] = samples['stranded'].map({'True': True, 'False': False})
-samples['batch'] = samples['batch'].astype('int')
-print(samples.head())
+if samples['stranded']:
+    samples['stranded'] = samples['stranded'].map({'True': True, 'False': False})
+if samples['batch']:
+    samples['batch'] = samples['batch'].astype('int')
+#print(samples.head())
 validate(samples, "../schemas/samples.schema.yaml")
 
 
