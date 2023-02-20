@@ -10,7 +10,8 @@ validate(samples, "../schemas/samples.schema.yaml")
 
 samples = pd.read_csv(config["samples"], sep=",", dtype = str).set_index("Run", drop=False)
 
-
+print(samples.head())
+validate(samples, "../schemas/samples.schema.yaml")
 
 
 def get_mem_gb(wildcards, attempt):
