@@ -156,7 +156,7 @@ rule run_merge_gene_tpms_numbered_chr:
 
 rule run_merge_gene_tpms_numbered_downsampled:
     input: get_all_gene_tpm_files_downsampled
-    output: "results/quant/all_gene_tmps_numbered_chr.csv"
+    output: "results/quant/all_gene_tmps_numbered_chr_downsampled.csv"
     log:    "00log/run_merge_gene_tpms_numbered_downsampled.log"
     conda: "../envs/python_tools.yaml"
     resources: 
