@@ -54,6 +54,25 @@ if config["single_end"]:
             TPMCalculator -g {params.gtf_anno} -b {params.in_file} -q 200 -e 
             """
 
+    rule run_TPMCalculator_downsampled:
+        input: "results/mapped_down/{sample_name}_numbered_chr_down.bam", "results/mapped_down/{sample_name}_numbered_chr_down.bam.bai"
+        output: "results/mapped_down/{sample_name}_numbered_chr_down_genes.ent","results/mapped_down/{sample_name}_numbered_chr_down_genes.out"
+        log:    "00log/run_TPMCalculator_downsampled_{sample_name}.log"
+        conda: "../envs/bioinf_tools.yaml"
+        resources: 
+            cpu = 2,
+            mem = "10",
+            time = "34:00:00"
+        params: 
+            gtf_anno = config["gtf"],
+            in_file = "{sample_name}_numbered_chr_down.bam"
+        message: "rrun_TPMCalculator_downsampled {input}: {resources.cpu} threads / {resources.mem}"
+        shell:
+            """
+            cd results/mapped_down/
+            TPMCalculator -g {params.gtf_anno} -b {params.in_file} -q 200 -e 
+            """
+
 else:
     rule run_TPMCalculator:
         input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
@@ -105,12 +124,33 @@ else:
         params: 
             gtf_anno = config["gtf"],
             in_file = "{sample_name}_numbered_chr_down.bam"
-        message: "rrun_TPMCalculator_downsampled {input}: {resources.cpu} threads / {resources.mem}"
+        message: "run_TPMCalculator_downsampled {input}: {resources.cpu} threads / {resources.mem}"
         shell:
             """
             cd results/mapped_down/
             TPMCalculator -g {params.gtf_anno} -b {params.in_file} -p -q 200 -e 
             """
+
+
+rule run_htseq_downsampled:
+    input: "results/mapped_down/{sample_name}_numbered_chr_down.bam", "results/mapped_down/{sample_name}_numbered_chr_down.bam.bai"
+    output: "results/mapped_down/{sample_name}_numbered_chr_down_intron_htscounts.txt"
+    log:    "00log/run_TPMCalculator_downsampled_{sample_name}.log"
+    conda: "../envs/htseq_env.yaml"
+    resources: 
+        cpu = 8,
+        mem = "10",
+        time = "24:00:00"
+    params: 
+        gtf_anno_introns = config["gtf_introns"]
+    message: "run_htseq_downsampled {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        htseq-count -n {resources.cpu} -f bam -t exon -r pos -s no -m intersection-strict {input[0]} {params.gtf_anno_introns} > {output[0]}
+        """
+
+
+
 
 rule run_merge_junctions_STAR:
     input: get_all_star_junctions_files
