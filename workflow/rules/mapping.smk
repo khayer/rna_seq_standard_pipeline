@@ -272,7 +272,7 @@ rule run_downsample_bam:
         mem = "10",
         time = "34:00:00"
     params: 
-        sample_name = "{sample_name}"
+        sample_name = "{sample_name}",
         number_of_reads = "results/mapped_down/{sample_name}_numbered_down_chr_number_of_reads.txt"
     message: "run_downsample_bam {input}: {resources.cpu} threads / {resources.mem}"
     shell:
