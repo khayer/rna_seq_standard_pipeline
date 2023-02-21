@@ -203,7 +203,7 @@ rule run_merge_gene_tpms_numbered_downsampled:
         cpu = 2,
         mem = "30",
         time = "24:00:00"
-    params: "results/mapped/", config["gtf"]
+    params: "results/mapped_down/", config["gtf"]
     message: "run_merge_gene_tpms_numbered_downsampled {params}: {resources.cpu} threads / {resources.mem}"
     script:
         "../scripts/merge_gene_TPMs.py"
