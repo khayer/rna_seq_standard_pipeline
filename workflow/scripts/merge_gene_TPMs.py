@@ -25,7 +25,7 @@ log_file.write(dir_TPM + "\n")
 outfile = snakemake.output[0]
 log_file.write(outfile + "\n")
 all_TPM_files = [sub.replace('results/mapped/', '') for sub in snakemake.input]
-
+all_TPM_files = [sub.replace('results/mapped_down/', '') for sub in snakemake.input]
 
 anno = read_gtf(snakemake.params[1])
 
