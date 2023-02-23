@@ -5,117 +5,58 @@
 # kind == either mustache or cLoops
 
 # e.g
-# cd /Users/hayerk/Dropbox_Work/files/BassingLab/2021_11_Bassing_Oltz_Writing_Weekend/merge_HiCCUPS
-# ruby ~/github/hic_pipe/scripts/convert_bedpe_to_interact.rb DP_all_reps_hiccups/merged_loops.bedpe DP_all_reps_hiccups.interact 2 hiccups
+# cd /mnt/isilon/weitzman_lab/projects/lab_rna_seq/results/mapped
+# ruby ~/data/tools/rna_seq_standard_pipeline/workflow/scripts/convert_SJ_to_interaction SJ.out.tab SJ.interact 5
 puts ARGV
 outfile = File.open(ARGV[1], 'w')
-skip = ARGV[2].to_i
-kind = ARGV[3] 
+cutoff = ARGV[2].to_i
+#kind = ARGV[3] 
 name = "kat_fun"
 color = 0 # Use 0 and spectrum setting to shade by score
 
+skip = 0
 
-if kind == "cLoops"
-	File.open(ARGV[0]).each do |line|
-		line.chomp!
-		if (line =~ /^#/) or skip != 0
-			skip = skip - 1
-			next
-	
-		end
-		fields = line.split("\t")
-		out = "#{fields[0]}\t#{fields[1]}\t#{fields[5]}\t#{fields[8]}\t"
-		score_double = fields[10].to_f # Using the enrichment score
-		score_int = -1
-		case
-		when score_double > 5
-			score_int = 955
-		when score_double > 3
-			score_int = 722
-		when score_double > 2.5
-			score_int = 388
-		else 
-			score_int = 0
-		end
-	
-		
-		out += "#{score_int}\t#{score_double}\t#{name}\t#{color}\t"
-		source = "#{fields[0]}\t#{fields[1]}\t#{fields[2]}\tAnchorA\t."
-		target = "#{fields[3]}\t#{fields[4]}\t#{fields[5]}\tAnchorB\t."
-		out += "#{source}\t#{target}"
-		#puts line
-		outfile.puts out
-		#break
+File.open(ARGV[0]).each do |line|
+	line.chomp!
+	if (line =~ /^#/) or skip != 0
+		skip = skip - 1
+		next
+
 	end
-elsif kind == "hiccups"
-	File.open(ARGV[0]).each do |line|
-		line.chomp!
-		if (line =~ /^#/) or skip != 0
-			skip = skip - 1
-			next
-	
-		end
-		fields = line.split("\t")
-		out = "#{fields[0]}\t#{fields[1]}\t#{fields[5]}\t#{fields[8]}\t"
-		score_double = (-Math.log10(fields[17].to_f+4.034E-50)).round(4) #fields[17].to_f # Donut
-		score_int = -1
-		case
-		when score_double > 5
-			score_int = 955
-		when score_double > 3
-			score_int = 722
-		when score_double > 2.5
-			score_int = 388
-		else 
-			score_int = 0
-		end
-	
-		
-		out += "#{score_int}\t#{score_double}\t#{name}\t#{color}\t"
-		source = "#{fields[0]}\t#{fields[1]}\t#{fields[2]}\tAnchorA\t."
-		target = "#{fields[3]}\t#{fields[4]}\t#{fields[5]}\tAnchorB\t."
-		out += "#{source}\t#{target}"
-		#puts line
-		outfile.puts out
-		#break
+	fields = line.split("\t")
+	strand = "."
+	if fields[3] == "1"
+		strand = "+"
+	elsif fields[3] == "2"
+		strand = "-"
 	end
+	score_double = fields[6].to_f
+	out = "chr#{fields[0]}\t#{fields[1].to_i-5}\t#{fields[2].to_i+4}\tj_#{count}_NR#{score_double}\t"
 	
-else
-	count = 0
-	File.open(ARGV[0]).each do |line|
-		line.chomp!
-		if (line =~ /^#/) or skip != 0
-			skip = skip - 1
-			next
-	
-		end
-		fields = line.split("\t")
-		out = "chr#{fields[0]}\t#{fields[1]}\t#{fields[5]}\tmustache#{count}\t"
-		score_double = (-Math.log10(fields[6].to_f)).round(4) # Using the FDR
-		score_int = -1
-		case
-		when score_double > 2
-			score_int = 955
-		when score_double > 1.5
-			score_int = 722
-		when score_double > 1
-			score_int = 388
-		else 
-			score_int = 0
-		end
-	
-		
-		out += "#{score_int}\t#{score_double}\t#{name}\t#{color}\t"
-		source = "chr#{fields[0]}\t#{fields[1]}\t#{fields[2]}\tAnchorA\t."
-		target = "chr#{fields[3]}\t#{fields[4]}\t#{fields[5]}\tAnchorB\t."
-		out += "#{source}\t#{target}"
-		#puts line
-		outfile.puts out
-		count += 1
-		#break
+	next if score_double < cutoff
+	score_int = -1
+	case
+	when score_double > 100
+		score_int = 955
+	when score_double > 50
+		score_int = 722
+	when score_double > 10
+		score_int = 388
+	else 
+		score_int = 0
 	end
 
+	
+	out += "#{score_int}\t#{score_double}\t#{name}\t#{color}\t"
+	source = "chr#{fields[0]}\t#{fields[1].to_i-5}\t#{fields[2]}\tAnchorA\t#{strand}"
+	target = "chr#{fields[0]}\t#{fields[2].to_i-1}\t#{fields[2].to_i+4}\tAnchorB\t#{strand}"
+	out += "#{source}\t#{target}"
+	#puts line
+	outfile.puts out
+	count += 1
+	#break
 end
+
 
 
 #DESIRED output
