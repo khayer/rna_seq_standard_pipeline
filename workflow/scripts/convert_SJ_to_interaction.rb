@@ -31,8 +31,8 @@ File.open(ARGV[0]).each do |line|
 	elsif fields[3] == "2"
 		strand = "-"
 	end
-	score_double = fields[6].to_f
-	out = "chr#{fields[0]}\t#{fields[1].to_i-5}\t#{fields[2].to_i+4}\tj_#{count}_NR#{score_double}\t"
+	score_double = fields[6].to_i
+	out = "#{fields[0]}\t#{fields[1].to_i-5}\t#{fields[2].to_i+4}\tj_#{count}_NR#{score_double}\t"
 	
 	next if score_double < cutoff
 	score_int = -1
@@ -49,8 +49,8 @@ File.open(ARGV[0]).each do |line|
 
 	
 	out += "#{score_int}\t#{score_double}\t#{name}\t#{color}\t"
-	source = "chr#{fields[0]}\t#{fields[1].to_i-5}\t#{fields[2]}\tAnchorA\t#{strand}"
-	target = "chr#{fields[0]}\t#{fields[2].to_i-1}\t#{fields[2].to_i+4}\tAnchorB\t#{strand}"
+	source = "#{fields[0]}\t#{fields[1].to_i-5}\t#{fields[2]}\tAnchorA\t#{strand}"
+	target = "#{fields[0]}\t#{fields[2].to_i-1}\t#{fields[2].to_i+4}\tAnchorB\t#{strand}"
 	out += "#{source}\t#{target}"
 	#puts line
 	outfile.puts out
