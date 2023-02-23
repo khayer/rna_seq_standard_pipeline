@@ -24,6 +24,7 @@ File.open(ARGV[0]).each do |line|
 		next
 
 	end
+	next if fields[0] =~ /^chr/
 	fields = line.split("\t")
 	strand = "."
 	if fields[3] == "1"
