@@ -16,7 +16,7 @@ color = 0 # Use 0 and spectrum setting to shade by score
 
 skip = 0
 count = 0
-samplename = ARGV[1].slice!(".out.tab")
+samplename = ARGV[1].sub("_SJ.out.tab","")
 
 outfile.puts "track type=interact name=\"#{samplename}\" description=\"#{samplename} splicing\" interactDirectional=true maxHeightPixels=200:100:50 visibility=full"
 
