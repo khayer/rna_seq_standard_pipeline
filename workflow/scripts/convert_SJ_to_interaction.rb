@@ -6,7 +6,7 @@
 
 # e.g
 # cd /mnt/isilon/weitzman_lab/projects/lab_rna_seq/results/mapped
-# ruby ~/data/tools/rna_seq_standard_pipeline/workflow/scripts/convert_SJ_to_interaction SJ.out.tab SJ.interact 5
+# ruby ~/data/tools/rna_seq_standard_pipeline/workflow/scripts/convert_SJ_to_interaction.rb SJ.out.tab SJ.interact 5
 puts ARGV
 outfile = File.open(ARGV[1], 'w')
 cutoff = ARGV[2].to_i
@@ -15,6 +15,7 @@ name = "kat_fun"
 color = 0 # Use 0 and spectrum setting to shade by score
 
 skip = 0
+count = 0
 
 File.open(ARGV[0]).each do |line|
 	line.chomp!
