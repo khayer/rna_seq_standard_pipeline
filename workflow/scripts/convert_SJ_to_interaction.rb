@@ -54,7 +54,7 @@ File.open(ARGV[0]).each do |line|
 
 	
 	out += "#{score_int}\t#{score_double.to_i}\t#{name}\t#{color}\t"
-	source = "#{fields[0]}\t#{fields[1].to_i-5}\t#{fields[1]}\tAnchorA\t#{strand}"
+	source = "#{fields[0]}\t#{fields[1].to_i-5}\t#{fields[1]}\tAnchorA_#{score_double.to_i}\t#{strand}"
 	target = "#{fields[0]}\t#{fields[2].to_i-1}\t#{fields[2].to_i+4}\tAnchorB\t#{strand}"
 	out += "#{source}\t#{target}"
 	#puts line

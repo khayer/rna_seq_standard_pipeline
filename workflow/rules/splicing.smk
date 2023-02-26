@@ -1,3 +1,18 @@
+rule run_convert_SJ_to_interact:
+    input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+    output: "results/junctions/{sample_name}.interact"
+    log:    "00log/run_convert_SJ_to_interact.log"
+    resources: 
+        cpu = 2,
+        mem = "40",
+        time = "44:00:00"
+    params: 
+        infile: "results/mapped/{sample_name}_SJ.out.tab"
+    message: "run_convert_SJ_to_interact {params}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        "ruby {workflow.basedir}/scripts/convert_SJ_to_interaction.rb {params.input} {output} 5"
+
+
 rule majiq_build:
     input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
     output: "results/splicing/majiq/majiq_{sample_name}/build_{sample_name}/{sample_name}.sj"

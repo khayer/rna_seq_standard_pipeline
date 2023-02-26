@@ -233,6 +233,7 @@ def all_input(wildcards):
                             "results/mapped/{sample_name}_idxstats.txt", 
                             "results/mapped/{sample_name}_flagstat.txt", 
                             "results/mapped/{sample_name}_samtools_stats.txt",
+                            "results/junctions/{sample_name}.interact",
                             "results/mapped_down/{sample_name}_numbered_chr_down_intron_htscounts.txt"
                             
                         ],
