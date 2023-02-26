@@ -7,7 +7,7 @@ rule run_convert_SJ_to_interact:
         mem = "40",
         time = "44:00:00"
     params: 
-        infile: "results/mapped/{sample_name}_SJ.out.tab"
+        infile = "results/mapped/{sample_name}_SJ.out.tab"
     message: "run_convert_SJ_to_interact {params}: {resources.cpu} threads / {resources.mem}"
     shell:
         "ruby {workflow.basedir}/scripts/convert_SJ_to_interaction.rb {params.input} {output} 5"
