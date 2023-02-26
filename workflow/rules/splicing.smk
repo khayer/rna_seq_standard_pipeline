@@ -1,7 +1,7 @@
 rule run_convert_SJ_to_interact:
     input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
     output: "results/junctions/{sample_name}.interact"
-    log:    "00log/run_convert_SJ_to_interact.log"
+    log:    "00log/run_convert_SJ_to_interact_{sample_name}.log"
     resources: 
         cpu = 2,
         mem = "40",
