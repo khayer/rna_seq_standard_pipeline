@@ -10,7 +10,7 @@ rule run_convert_SJ_to_interact:
         infile = "results/mapped/{sample_name}_SJ.out.tab"
     message: "run_convert_SJ_to_interact {params}: {resources.cpu} threads / {resources.mem}"
     shell:
-        "ruby {workflow.basedir}/scripts/convert_SJ_to_interaction.rb {params.input} {output} 5"
+        "ruby {workflow.basedir}/scripts/convert_SJ_to_interaction.rb {params.infile} {output} 5"
 
 
 rule majiq_build:
