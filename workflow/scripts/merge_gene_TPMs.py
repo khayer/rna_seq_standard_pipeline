@@ -33,7 +33,7 @@ anno = read_gtf(snakemake.params[1])
 anno_genes = anno[anno["feature"] == "gene"]
 anno_genes_chrY = anno_genes[anno_genes["seqname"] == "Y"]
 #anno.head()
-anno_genes = anno_genes[anno_genes.columns[0:11]]
+anno_genes = anno_genes[anno_genes.columns[0:12]]
 anno_genes.index = anno_genes.gene_id
 
 
