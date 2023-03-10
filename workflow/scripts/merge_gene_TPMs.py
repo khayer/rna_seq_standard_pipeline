@@ -7,6 +7,7 @@ from gtfparse import read_gtf
 log_file = open(snakemake.log[0], 'w')
 
 def process_file(f, path):
+    f = f.replace('results/mapped/', '')
     df =  pd.read_csv(path + f, sep = "\t",index_col = 0)
     #n = f.split("/")[1]
     n = f.replace("_Aligned.sortedByCoord.out_genes.out","")
