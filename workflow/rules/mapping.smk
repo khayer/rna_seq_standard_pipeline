@@ -277,7 +277,7 @@ rule run_downsample_bam:
     message: "run_downsample_bam {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
-        ratio=`grep -w {params.sample_name} {input[2]} | cut -f 2`
+        ratio=`grep -w {params.sample_name} {input[2]} | uniq | cut -f 2`
         samtools view -bs $ratio {input[0]} > {output[0]}
         samtools index {output[0]}
         samtools view -c {output[0]} > {params.number_of_reads}
