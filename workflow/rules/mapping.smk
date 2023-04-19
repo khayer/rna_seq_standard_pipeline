@@ -8,7 +8,7 @@ rule trimming:
         mem = "20",
         time = "44:00:00"
     params: 
-        options = "ktrim=r k=23 mink=11 hdist=1 minlength=35 tpe tbo qtrim=r trimq=20 qin=33" 
+        options = "ktrim=r k=23 mink=11 hdist=1 minlength=18 tpe tbo qtrim=r trimq=5 qin=33" 
     message: "trimming {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
@@ -30,6 +30,24 @@ rule trimming_single:
     shell:
         """
         bbduk.sh in={input[0]} ref=adapters {params.options} -Xmx10g threads={resources.cpu} out={output[0]} 2> {log} 
+        """
+
+
+rule fastqc_before_trimming:
+    input: "reads/{sample}_1.fastq.gz" , "reads/{sample}_2.fastq.gz"
+    output: "results/fastqc/{sample}_1_fastqc.zip","results/fastqc/{sample}_2_fastqc.zip"
+    log:    "00log/fastqc_before_trimming_{sample}.log"
+    conda: "../envs/bioinf_tools.yaml"
+    resources: 
+        cpu = 6,
+        mem = "10",
+        time = "24:00:00"
+    params: 
+        options = " "
+    message: "fastqc {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        fastqc -t {resources.cpu} -o results/fastqc/ {input}
         """
 
 

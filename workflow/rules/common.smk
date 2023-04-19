@@ -192,6 +192,7 @@ def all_input(wildcards):
                             [
                                 "results/trimmed/{sample}_trim_{read}.fastq.gz",
                                 "results/fastqc/{sample}_trim_{read}_fastqc.zip"
+                                "results/fastqc/{sample}_{read}_fastqc.zip"
                             ],
                             sample = sample, read = read
                         )
