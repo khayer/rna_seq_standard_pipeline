@@ -239,27 +239,49 @@ rule run_bam_stats:
         """
 
 
-
+if config["single_end"]:
 ### bam files for selected genes
-rule run_bam_just_numbered_chr:
-    input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
-    output: "results/mapped/{sample_name}_numbered_chr.bam", "results/mapped/{sample_name}_numbered_chr.bam.bai", "results/mapped/{sample_name}_numbered_chr_number_of_reads.txt"
-    log:    "00log/run_bam_just_numbered_chr_{sample_name}.log"
-    conda: "../envs/bioinf_tools.yaml"
-    resources: 
-        cpu = 2,
-        mem = "10",
-        time = "34:00:00"
-    params: 
-        numbered_chr = config["numbered_chr"],
-        number_of_reads = "results/mapped/{sample_name}_numbered_chr_number_of_reads.txt"
-    message: "run_bam_just_numbered_chr {input}: {resources.cpu} threads / {resources.mem}"
-    shell:
-        """
-        samtools view -b -q 20 -f 3 -L {params.numbered_chr}  {input[0]} > {output[0]}
-        samtools index {output[0]}
-        samtools view -c {output[0]} > {params.number_of_reads}
-        """
+    rule run_bam_just_numbered_chr:
+        input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+        output: "results/mapped/{sample_name}_numbered_chr.bam", "results/mapped/{sample_name}_numbered_chr.bam.bai", "results/mapped/{sample_name}_numbered_chr_number_of_reads.txt"
+        log:    "00log/run_bam_just_numbered_chr_{sample_name}.log"
+        conda: "../envs/bioinf_tools.yaml"
+        resources: 
+            cpu = 2,
+            mem = "10",
+            time = "34:00:00"
+        params: 
+            numbered_chr = config["numbered_chr"],
+            number_of_reads = "results/mapped/{sample_name}_numbered_chr_number_of_reads.txt"
+        message: "run_bam_just_numbered_chr {input}: {resources.cpu} threads / {resources.mem}"
+        shell:
+            """
+            samtools view -b -q 20 -F 260 -L {params.numbered_chr}  {input[0]} > {output[0]}
+            samtools index {output[0]}
+            samtools view -c {output[0]} > {params.number_of_reads}
+            """
+else:
+
+    ### bam files for selected genes
+    rule run_bam_just_numbered_chr:
+        input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+        output: "results/mapped/{sample_name}_numbered_chr.bam", "results/mapped/{sample_name}_numbered_chr.bam.bai", "results/mapped/{sample_name}_numbered_chr_number_of_reads.txt"
+        log:    "00log/run_bam_just_numbered_chr_{sample_name}.log"
+        conda: "../envs/bioinf_tools.yaml"
+        resources: 
+            cpu = 2,
+            mem = "10",
+            time = "34:00:00"
+        params: 
+            numbered_chr = config["numbered_chr"],
+            number_of_reads = "results/mapped/{sample_name}_numbered_chr_number_of_reads.txt"
+        message: "run_bam_just_numbered_chr {input}: {resources.cpu} threads / {resources.mem}"
+        shell:
+            """
+            samtools view -b -q 20 -f 3 -L {params.numbered_chr}  {input[0]} > {output[0]}
+            samtools index {output[0]}
+            samtools view -c {output[0]} > {params.number_of_reads}
+            """
 
 ### bam files for selected genes
 rule run_downsample_bam_prep:
