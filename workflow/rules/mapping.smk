@@ -25,7 +25,7 @@ rule trimming_single:
         mem = "20",
         time = "44:00:00"
     params: 
-        options = "ktrim=r k=23 mink=11 hdist=1 minlength=35 tpe tbo qtrim=r trimq=20 qin=33" 
+        options = "ktrim=r k=23 mink=11 hdist=1 minlength=20 tpe tbo qtrim=r trimq=5 qin=33" 
     message: "trimming {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
