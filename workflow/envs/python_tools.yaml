@@ -4,6 +4,6 @@ channels:
   - conda-forge
 dependencies:
   - snakemake
-  - pandas
-  - gtfparse
+  - pandas=1.4.2
+  - gtfparse=1.2.1
   - multiqc
