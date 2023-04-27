@@ -44,7 +44,7 @@ rule fastqc_before_trimming:
         time = "24:00:00"
     params: 
         options = " "
-    message: "fastqc {input}: {resources.cpu} threads / {resources.mem}"
+    message: "fastqc_before_trimming {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
         fastqc -t {resources.cpu} -o results/fastqc/ {input}
@@ -67,6 +67,24 @@ rule fastqc:
         """
         fastqc -t {resources.cpu} -o results/fastqc/ {input}
         """
+
+
+rule fastqc_before_trimming_single:
+    input: "reads/{sample}_.fastq.gz" 
+    output: "results/fastqc/{sample}_fastqc.zip"
+    log:    "00log/fastqc_before_trimming_single_{sample}.log"
+    conda: "../envs/bioinf_tools.yaml"
+    resources: 
+        cpu = 6,
+        mem = "10",
+        time = "24:00:00"
+    params: 
+        options = " "
+    message: "fastqc_before_trimming_single {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        fastqc -t {resources.cpu} -o results/fastqc/ {input}
+        """        
 
 rule fastqc_single:
     input: get_trimmed_reads2
