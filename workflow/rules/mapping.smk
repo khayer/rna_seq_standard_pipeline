@@ -70,8 +70,8 @@ rule fastqc:
 
 
 rule fastqc_before_trimming_single:
-    input: "reads/{sample}_.fastq.gz" 
-    output: "results/fastqc/{sample}_fastqc.zip"
+    input: "reads/{sample}.fastq.gz" 
+    output: "results/fastqc/{sample}.fastqc.zip"
     log:    "00log/fastqc_before_trimming_single_{sample}.log"
     conda: "../envs/bioinf_tools.yaml"
     resources: 
