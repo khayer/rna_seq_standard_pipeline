@@ -53,7 +53,7 @@ rule fastqc_before_trimming:
 
 rule fastqc:
     input: get_trimmed_reads2
-    output: "results/fastqc/{sample}_trim_1_fastqc.zip","results/fastqc/{sample}_trim_2_fastqc.zip"
+    output: "results/fastqc_trim/{sample}_trim_1_fastqc.zip","results/fastqc_trim/{sample}_trim_2_fastqc.zip"
     log:    "00log/fastqc_{sample}.log"
     conda: "../envs/bioinf_tools.yaml"
     resources: 
@@ -88,7 +88,7 @@ rule fastqc_before_trimming_single:
 
 rule fastqc_single:
     input: get_trimmed_reads2
-    output: "results/fastqc/{sample}_trim_fastqc.zip"
+    output: "results/fastqc_trim/{sample}_trim_fastqc.zip"
     log:    "00log/fastqc_{sample}.log"
     conda: "../envs/bioinf_tools.yaml"
     resources: 
