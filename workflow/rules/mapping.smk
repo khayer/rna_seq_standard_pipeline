@@ -65,7 +65,7 @@ rule fastqc:
     message: "fastqc {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
-        fastqc -t {resources.cpu} -o results/fastqc/ {input}
+        fastqc -t {resources.cpu} -o results/fastqc_trim/ {input}
         """
 
 
@@ -100,7 +100,7 @@ rule fastqc_single:
     message: "fastqc {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
-        fastqc -t {resources.cpu} -o results/fastqc/ {input}
+        fastqc -t {resources.cpu} -o results/fastqc_trim/ {input}
         """
 
 def get_mem_gb_star(wildcards, attempt):
