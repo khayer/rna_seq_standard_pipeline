@@ -24,3 +24,6 @@ if not os.path.exists("results/coverage"):
 
 
 localrules: run_merge_gene_tpms, run_multiqc, run_downsample_bam_prep
+
+
+ruleorder: fastqc_before_trimming > fastqc_before_trimming_single 
