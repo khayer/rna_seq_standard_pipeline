@@ -215,8 +215,8 @@ def all_input(wildcards):
                         [
                             "results/coverage/{sample}_fwd_CPM.bw", 
                             "results/coverage/{sample}_rev_CPM.bw",
-                            "results/coverage_no_bl/{sample_name}_fwd_no_bl_CPM.bw",
-                            "results/coverage_no_bl/{sample_name}_rev_no_bl_CPM.bw"
+                            "results/coverage_no_bl/{sample}_fwd_no_bl_CPM.bw",
+                            "results/coverage_no_bl/{sample}_rev_no_bl_CPM.bw"
                         ],
                         sample = sample
                     )
