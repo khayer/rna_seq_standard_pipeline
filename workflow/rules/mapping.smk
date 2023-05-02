@@ -217,19 +217,17 @@ else:
     rule bamCoverage_CPM_stranded_no_blacklist:
         input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
         output: "results/coverage_no_bl/{sample_name}_fwd_no_bl_CPM.bw", "results/coverage_no_bl/{sample_name}_rev_no_bl_CPM.bw"
-        log:  "00log/{sample_name}.bamCoverage_stranded"
+        log:  "00log/{sample_name}.bamCoverage_CPM_stranded_no_blacklist"
         conda: "../envs/deeptools.yaml"
         resources:
             cpu = 4,
             mem = "10",
             time = "32:00:00"
-        params:
-            blacklist = "--blackListFileName " + config["blacklist"]
-        message: "bamCoverage_CPM_stranded {input}: {resources.cpu} threads" #"/ {params.mem}"
+        message: "bamCoverage_CPM_stranded_no_blacklist {input}: {resources.cpu} threads" #"/ {params.mem}"
         shell: 
             """
-            bamCoverage -bs 1 -b {input[0]} -o {output[0]} --filterRNAstrand forward -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 255
-            bamCoverage --scaleFactor -1 -bs 1 -b {input[0]} -o {output[1]} --filterRNAstrand reverse -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 255
+            bamCoverage -bs 1 -b {input[0]} -o {output[0]} --filterRNAstrand forward -p 4 --normalizeUsing CPM --exactScaling --ignoreDuplicates --minMappingQuality 255
+            bamCoverage --scaleFactor -1 -bs 1 -b {input[0]} -o {output[1]} --filterRNAstrand reverse -p 4 --normalizeUsing CPM --exactScaling --ignoreDuplicates --minMappingQuality 255
             """
 
 
