@@ -44,6 +44,8 @@ if config["single_end"]:
             cpu = 2,
             mem = "10",
             time = "34:00:00"
+        wildcard_constraints:
+            sample_name="\w+"
         params: 
             gtf_anno = config["gtf"],
             in_file = "{sample_name}_numbered_chr.bam"
