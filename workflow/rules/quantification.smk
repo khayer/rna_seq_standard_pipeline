@@ -37,7 +37,7 @@ if config["single_end"]:
 
     rule run_TPMCalculator_numbered_chr:
         input: "results/mapped/{sample_name}_numbered_chr.bam", "results/mapped/{sample_name}_numbered_chr.bam.bai"
-        output: "results/mapped/{sample_name}_numbered_chr_genes.ent","{sample_name}_numbered_chr_genes.out"
+        output: "results/mapped/{sample_name}_numbered_chr_genes.ent","results/mapped/{sample_name}_numbered_chr_genes.out"
         log:    "00log/run_TPMCalculator-numbered_chr_{sample_name}.log"
         conda: "../envs/bioinf_tools.yaml"
         resources: 
