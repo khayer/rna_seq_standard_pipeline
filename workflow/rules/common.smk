@@ -43,6 +43,9 @@ def get_raw_reads(wildcards):
 
 def get_trimmed_reads(wildcards):
     run_ids = samples[samples["sample_name"] == wildcards.sample_name]["Run"].tolist()
+    puts "HEREEEEEE"
+    puts wildcards
+    puts run_ids
     out = []
     if config["single_end"]:
         for r in run_ids:
