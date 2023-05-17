@@ -141,7 +141,7 @@ rule run_htseq_downsampled:
     conda: "../envs/htseq_env.yaml"
     resources: 
         cpu = 8,
-        mem = "10",
+        mem = "20",
         time = "24:00:00"
     params: 
         gtf_anno_introns = config["gtf_introns"]
