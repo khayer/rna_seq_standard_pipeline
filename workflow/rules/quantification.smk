@@ -152,8 +152,6 @@ rule run_htseq_downsampled:
         """
 
 
-
-
 rule run_merge_junctions_STAR:
     input: get_all_star_junctions_files
     output: "results/quant/all_star_junctions.csv"

@@ -12,6 +12,25 @@ rule run_convert_SJ_to_interact:
     shell:
         "ruby {workflow.basedir}/scripts/convert_SJ_to_interaction.rb {params.infile} {output} 5"
 
+rule run_convert_interact_to_bigbed:
+    input: "results/junctions/{sample_name}.interact"
+    output: "results/junctions/{sample_name}.inter.bb"
+    log:    "00log/run_convert_interact_to_bigbed_{sample_name}.log"
+    resources: 
+        cpu = 2,
+        mem = "40",
+        time = "44:00:00"
+    params: 
+        chrom_sizes = config["chrom_sizes"]
+    message: "run_convert_SJ_to_interact {params}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        grep ^chr {input} > {input}.tmp
+        LC_COLLATE=C sort -k1,1 -k2,2n {input}.tmp > {input}.sorted
+        # this interact.as file is from ucsc
+        bedToBigBed -as={workflow.basedir}/resources/interact.as  -type=bed5+13 {input}.sorted {params.chrom_sizes} {output}
+        """
+
 
 rule majiq_build:
     input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"

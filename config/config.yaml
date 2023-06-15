@@ -9,6 +9,7 @@ gtf: /home/hayerk/data/index/GRCh38.p13/gencode.v32.primary_assembly.annotation.
 tmp_dir: /scr1/users/hayerk/tmp
 selected_genes: /mnt/isilon/thomas-tikhonenko_lab/data/index/selected_genes.bed
 numbered_chr: /home/hayerk/data/index/hg38_only_numbered.bed
+chrom_sizes: /home/hayerk/data/index/hg38_ad5.sizes
 single_end: False
 stranded: False
 gtf_introns: /home/hayerk/data/index/introns_mm10.gtf
