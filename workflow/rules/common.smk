@@ -242,6 +242,7 @@ def all_input(wildcards):
                             "results/mapped/{sample_name}_samtools_stats.txt",
                             "results/mapped/{sample_name}_numbered_chr_genes.out",
                             "results/junctions/{sample_name}.interact",
+                            "results/junctions/{sample_name}.inter.bb",
                             "results/mapped_down/{sample_name}_numbered_chr_down_intron_htscounts.txt"
                             
                         ],
