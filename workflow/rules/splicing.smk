@@ -28,7 +28,7 @@ rule run_convert_interact_to_bigbed:
         grep ^chr {input} > {input}.tmp
         LC_COLLATE=C sort -k1,1 -k2,2n {input}.tmp > {input}.sorted
         # this interact.as file is from ucsc
-        bedToBigBed -as={workflow.basedir}/resources/interact.as  -type=bed5+13 {input}.sorted {params.chrom_sizes} {output}
+        bedToBigBed -as={workflow.basedir}/../resources/interact.as  -type=bed5+13 {input}.sorted {params.chrom_sizes} {output}
         rm {input}.tmp
         rm {input}.sorted
         """
