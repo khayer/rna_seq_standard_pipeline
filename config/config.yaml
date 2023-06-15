@@ -11,3 +11,4 @@ selected_genes: /mnt/isilon/thomas-tikhonenko_lab/data/index/selected_genes.bed
 numbered_chr: /home/hayerk/data/index/hg38_only_numbered.bed
 single_end: False
 stranded: False
+gtf_introns: /home/hayerk/data/index/introns_mm10.gtf
