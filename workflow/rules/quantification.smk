@@ -11,7 +11,7 @@ rule run_regtools:
     message: "run_regtools {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
-        regtools junctions extract -s 0 -o {output[0]} {input[0]}
+        regtools junctions extract -s RF -o {output[0]} {input[0]}
         """
 
 ### calculate TPMs
