@@ -232,24 +232,7 @@ else:
 
 
 
-### bam files for selected genes
-rule run_bam_selected_genes:
-    input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
-    output: "results/mapped/{sample_name}_selected_genes.bam", "results/mapped/{sample_name}_selected_genes.bam.bai"
-    log:    "00log/run_run_bam_selected_genes_{sample_name}.log"
-    conda: "../envs/bioinf_tools.yaml"
-    resources: 
-        cpu = 2,
-        mem = "10",
-        time = "34:00:00"
-    params: 
-        selected_genes = config["selected_genes"]
-    message: "run_bam_selected_genes {input}: {resources.cpu} threads / {resources.mem}"
-    shell:
-        """
-        samtools view -b -q 20 -f 3 -L {params.selected_genes}  {input[0]} > {output[0]}
-        samtools index {output[0]}
-        """
+
 
 
 ### bam file stats
@@ -294,6 +277,25 @@ if config["single_end"]:
             samtools index {output[0]}
             samtools view -c {output[0]} > {params.number_of_reads}
             """
+
+    ### bam files for selected genes
+    rule run_bam_selected_genes:
+        input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+        output: "results/mapped/{sample_name}_selected_genes.bam", "results/mapped/{sample_name}_selected_genes.bam.bai"
+        log:    "00log/run_run_bam_selected_genes_{sample_name}.log"
+        conda: "../envs/bioinf_tools.yaml"
+        resources: 
+            cpu = 2,
+            mem = "10",
+            time = "34:00:00"
+        params: 
+            selected_genes = config["selected_genes"]
+        message: "run_bam_selected_genes {input}: {resources.cpu} threads / {resources.mem}"
+        shell:
+            """
+            samtools view -b -q 20 -F 260 -L {params.selected_genes}  {input[0]} > {output[0]}
+            samtools index {output[0]}
+            """
 else:
 
     ### bam files for selected genes
@@ -315,6 +317,25 @@ else:
             samtools view -b -q 20 -f 3 -L {params.numbered_chr}  {input[0]} > {output[0]}
             samtools index {output[0]}
             samtools view -c {output[0]} > {params.number_of_reads}
+            """
+
+    ### bam files for selected genes
+    rule run_bam_selected_genes:
+        input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+        output: "results/mapped/{sample_name}_selected_genes.bam", "results/mapped/{sample_name}_selected_genes.bam.bai"
+        log:    "00log/run_run_bam_selected_genes_{sample_name}.log"
+        conda: "../envs/bioinf_tools.yaml"
+        resources: 
+            cpu = 2,
+            mem = "10",
+            time = "34:00:00"
+        params: 
+            selected_genes = config["selected_genes"]
+        message: "run_bam_selected_genes {input}: {resources.cpu} threads / {resources.mem}"
+        shell:
+            """
+            samtools view -b -q 20 -f 3 -L {params.selected_genes}  {input[0]} > {output[0]}
+            samtools index {output[0]}
             """
 
 ### bam files for selected genes
