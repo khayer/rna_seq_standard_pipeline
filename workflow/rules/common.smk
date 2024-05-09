@@ -241,15 +241,18 @@ def all_input(wildcards):
                             "results/mapped/{sample_name}_flagstat.txt", 
                             "results/mapped/{sample_name}_samtools_stats.txt",
                             "results/mapped/{sample_name}_numbered_chr_genes.out",
-                            "results/junctions/{sample_name}.interact",
-                            "results/junctions/{sample_name}.inter.bb",
                             "results/mapped_down/{sample_name}_numbered_chr_down_intron_htscounts.txt"
                             
                         ],
                         sample_name = sn
                     )
                 )
+        if config["interact_ucsc_genome_browser"]:
+            wanted_input.extend(["results/junctions/{sample_name}.interact","results/junctions/{sample_name}.inter.bb"],
+                        sample_name = sn)
+
     ## get merged files
+
     wanted_input.extend(["results/quant/all_star_junctions.csv"])
     wanted_input.extend(["results/quant/all_gene_tmps.csv"])
     wanted_input.extend(["results/quant/all_gene_tmps_numbered_chr.csv"])
