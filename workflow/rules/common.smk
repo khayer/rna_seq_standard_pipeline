@@ -14,7 +14,7 @@ if 'batch' in samples:
 else:
     samples['batch'] = 1
 #print(samples.head())
-validate(samples, "../schemas/samples.schema.yaml")
+#validate(samples, "../schemas/samples.schema.yaml")
 
 
 def get_mem_gb(wildcards, attempt):

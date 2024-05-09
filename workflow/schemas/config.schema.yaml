@@ -16,17 +16,23 @@ properties:
     type: string
   gtf:
     type: string
+  gff3:
+    type: string
   gtf_introns:
     type: string
   tmp_dir:
     type: string
   selected_genes:
     type: string
+  chrom_sizes:
+    type: string
   numbered_chr: 
     type: string
   single_end: 
     type: boolean
   stranded:
+    type: boolean
+  interact_ucsc_genome_browser:
     type: boolean
 
 # entries that have to be in the config file for successful validation
@@ -41,3 +47,4 @@ required:
   - numbered_chr
   - single_end
   - stranded
+  - interact_ucsc_genome_browser
