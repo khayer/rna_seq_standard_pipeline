@@ -48,3 +48,4 @@ required:
   - single_end
   - stranded
   - interact_ucsc_genome_browser
+  
