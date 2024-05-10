@@ -248,8 +248,8 @@ def all_input(wildcards):
                     )
                 )
         if config["interact_ucsc_genome_browser"]:
-            wanted_input.extend(["results/junctions/{sample_name}.interact","results/junctions/{sample_name}.inter.bb"],
-                        sample_name = sn)
+            wanted_input.extend(expand(["results/junctions/{sample_name}.interact","results/junctions/{sample_name}.inter.bb"],
+                        sample_name = sn))
 
     ## get merged files
 

@@ -44,8 +44,8 @@ if config["single_end"]:
             cpu = 2,
             mem = "10",
             time = "34:00:00"
-        wildcard_constraints:
-            sample_name="\w+"
+        #wildcard_constraints:
+        #    sample_name="\w+"
         params: 
             gtf_anno = config["gtf"],
             in_file = "{sample_name}_numbered_chr.bam"
@@ -119,11 +119,11 @@ else:
         output: "results/mapped_down/{sample_name}_numbered_chr_down_genes.ent","results/mapped_down/{sample_name}_numbered_chr_down_genes.out"
         log:    "00log/run_TPMCalculator_downsampled_{sample_name}.log"
         conda: "../envs/bioinf_tools.yaml"
-        resources: 
+        resources:
             cpu = 2,
             mem = "10",
             time = "34:00:00"
-        params: 
+        params:
             gtf_anno = config["gtf"],
             in_file = "{sample_name}_numbered_chr_down.bam"
         message: "run_TPMCalculator_downsampled {input}: {resources.cpu} threads / {resources.mem}"

@@ -13,3 +13,4 @@ chrom_sizes: /home/hayerk/data/index/hg38_ad5.sizes
 single_end: False
 stranded: False
 gtf_introns: /home/hayerk/data/index/introns_mm10.gtf
+interact_ucsc_genome_browser: False
