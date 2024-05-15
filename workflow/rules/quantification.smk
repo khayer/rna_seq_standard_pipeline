@@ -14,6 +14,23 @@ rule run_regtools:
         regtools junctions extract -s RF -o {output[0]} {input[0]}
         """
 
+rule run_htseq:
+    input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+    output: "results/mapped/{sample_name}_htscounts.txt"
+    log:    "00log/run_TPMCalculator_downsampled_{sample_name}.log"
+    conda: "../envs/htseq_env.yaml"
+    resources: 
+        cpu = 8,
+        mem = "20",
+        time = "24:00:00"
+    params: 
+        gtf_anno = config["gtf"]
+    message: "run_htseq_downsampled {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        htseq-count -n {resources.cpu} -f bam -t exon -r pos -s yes -m intersection-strict {input[0]} {params.gtf_anno} > {output[0]}
+        """
+
 ### calculate TPMs
 if config["single_end"]:
     rule run_TPMCalculator:

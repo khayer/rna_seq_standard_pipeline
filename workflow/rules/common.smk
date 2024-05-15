@@ -219,7 +219,8 @@ def all_input(wildcards):
                             "results/coverage/{sample}_fwd_CPM.bw", 
                             "results/coverage/{sample}_rev_CPM.bw",
                             "results/coverage_no_bl/{sample}_fwd_no_bl_CPM.bw",
-                            "results/coverage_no_bl/{sample}_rev_no_bl_CPM.bw"
+                            "results/coverage_no_bl/{sample}_rev_no_bl_CPM.bw",
+                            "results/mapped/{sample_name}_htscounts.txt"
                         ],
                         sample = sample
                     )
