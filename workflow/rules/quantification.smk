@@ -17,10 +17,10 @@ rule run_regtools:
 rule run_htseq:
     input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
     output: "results/mapped/{sample_name}_htscounts.txt"
-    log:    "00log/run_TPMCalculator_downsampled_{sample_name}.log"
+    log:    "00log/run_htseq_{sample_name}.log"
     conda: "../envs/htseq_env.yaml"
     resources: 
-        cpu = 8,
+        cpu = 14,
         mem = "20",
         time = "24:00:00"
     params: 
@@ -28,7 +28,7 @@ rule run_htseq:
     message: "run_htseq_downsampled {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
-        htseq-count -n {resources.cpu} -f bam -t exon -r pos -s yes -m intersection-strict {input[0]} {params.gtf_anno} > {output[0]}
+        htseq-count -n {resources.cpu} -f bam -t exon -r pos -s reverse -m intersection-strict {input[0]} {params.gtf_anno} > {output[0]}
         """
 
 ### calculate TPMs
