@@ -225,3 +225,17 @@ rule run_merge_gene_tpms_numbered_downsampled:
     script:
         "../scripts/merge_gene_TPMs.py"
 
+rule run_merge_gene_htseq_counts:
+    input: get_all_gene_htseq_files
+    output: "results/quant/all_gene_htseq_counts.csv"
+    log:    "00log/run_merge_gene_htseq_counts.log"
+    conda: "../envs/python_tools.yaml"
+    resources: 
+        cpu = 2,
+        mem = "30",
+        time = "24:00:00"
+    params: "results/mapped/", config["gtf"]
+    message: "run_merge_gene_htseq_counts {params}: {resources.cpu} threads / {resources.mem}"
+    script:
+        "../scripts/merge_htseq.py"
+

@@ -125,6 +125,19 @@ def get_all_gene_tpm_files(wildcards):
         )
     return out
 
+def run_merge_gene_htseq_counts(wildcards):
+    #print(wildcards)
+    run_ids = samples["sample_name"].tolist()
+    out = []
+    for r in run_ids:
+        out.extend ( 
+            expand ( [
+                "results/mapped/{sample}_htscounts.txt",
+            ], sample = r
+            )
+        )
+    return out
+
 def get_all_gene_tpm_files_numbered_chr(wildcards):
     #print(wildcards)
     run_ids = samples["sample_name"].tolist()
@@ -257,7 +270,9 @@ def all_input(wildcards):
     wanted_input.extend(["results/quant/all_star_junctions.csv"])
     wanted_input.extend(["results/quant/all_gene_tmps.csv"])
     wanted_input.extend(["results/quant/all_gene_tmps_numbered_chr.csv"])
-    wanted_input.extend(["results/quant/all_gene_tmps_numbered_chr_downsampled.csv"])
+    wanted_input.extend(["results/quant/all_gene_tmps_numbered_chr_downsampled.csv"
+    if config["stranded"]:
+        wanted_input.extend(["results/quant/all_gene_htseq_counts.csv"])
     return wanted_input
     
 
