@@ -194,6 +194,23 @@ if not config["stranded"]:
             bamCoverage -bs 1 -b {input[0]} -o {output[0]} -p 4 --normalizeUsing CPM {params.blacklist} --exactScaling --ignoreDuplicates --minMappingQuality 255
             """
 
+    rule bamCoverage_CPM_no_blacklist_low_quality:
+        input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+        output: "results/coverage/{sample_name}_CPM_low_quality.bw"
+        log:  "00log/{sample_name}.bamCoverage_CPM_low_quality"
+        conda: "../envs/deeptools.yaml"
+        resources:
+            cpu = 4,
+            mem = "10",
+            time = "32:00:00"
+        params:
+            blacklist = "--blackListFileName " + config["blacklist"]
+        message: "bamCoverage_CPM {input}: {resources.cpu} threads" #"/ {params.mem}"
+        shell: 
+            """
+            bamCoverage -bs 1 -b {input[0]} -o {output[0]} -p 4 --normalizeUsing CPM --exactScaling --ignoreDuplicates --minMappingQuality 1
+            """
+
 
 else:
     rule bamCoverage_CPM_stranded:
@@ -228,6 +245,22 @@ else:
             """
             bamCoverage -bs 1 -b {input[0]} -o {output[0]} --filterRNAstrand forward -p 4 --normalizeUsing CPM --exactScaling --ignoreDuplicates --minMappingQuality 255
             bamCoverage --scaleFactor -1 -bs 1 -b {input[0]} -o {output[1]} --filterRNAstrand reverse -p 4 --normalizeUsing CPM --exactScaling --ignoreDuplicates --minMappingQuality 255
+            """
+
+    rule bamCoverage_CPM_stranded_no_blacklist_low_quality:
+        input: "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam", "results/mapped/{sample_name}_Aligned.sortedByCoord.out.bam.bai"
+        output: "results/coverage_no_bl/{sample_name}_fwd_no_bl_CPM_low_quality.bw", "results/coverage_no_bl/{sample_name}_rev_no_bl_CPM_low_quality.bw"
+        log:  "00log/{sample_name}.bamCoverage_CPM_stranded_no_blacklist_low_quality"
+        conda: "../envs/deeptools.yaml"
+        resources:
+            cpu = 4,
+            mem = "10",
+            time = "32:00:00"
+        message: "bamCoverage_CPM_stranded_no_blacklist {input}: {resources.cpu} threads" #"/ {params.mem}"
+        shell: 
+            """
+            bamCoverage -bs 1 -b {input[0]} -o {output[0]} --filterRNAstrand forward -p 4 --normalizeUsing CPM --exactScaling --ignoreDuplicates --minMappingQuality 1
+            bamCoverage --scaleFactor -1 -bs 1 -b {input[0]} -o {output[1]} --filterRNAstrand reverse -p 4 --normalizeUsing CPM --exactScaling --ignoreDuplicates --minMappingQuality 1
             """
 
 
