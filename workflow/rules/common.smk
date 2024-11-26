@@ -221,7 +221,7 @@ def all_input(wildcards):
                 expand (
                         [
                             "results/coverage/{sample}_CPM.bw",
-                            "results/coverage/{sample_name}_CPM_low_quality.bw"
+                            "results/coverage/{sample}_CPM_low_quality.bw"
                         ],
                         sample = sample
                     )
@@ -234,8 +234,8 @@ def all_input(wildcards):
                             "results/coverage/{sample}_rev_CPM.bw",
                             "results/coverage_no_bl/{sample}_fwd_no_bl_CPM.bw",
                             "results/coverage_no_bl/{sample}_rev_no_bl_CPM.bw",
-                            "results/coverage_no_bl/{sample_name}_fwd_no_bl_CPM_low_quality.bw",
-                            "results/coverage_no_bl/{sample_name}_rev_no_bl_CPM_low_quality.bw",
+                            "results/coverage_no_bl/{sample}_fwd_no_bl_CPM_low_quality.bw",
+                            "results/coverage_no_bl/{sample}_rev_no_bl_CPM_low_quality.bw",
                             "results/mapped/{sample}_htscounts.txt"
                         ],
                         sample = sample
