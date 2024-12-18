@@ -273,7 +273,7 @@ def all_input(wildcards):
     wanted_input.extend(["results/quant/all_star_junctions.csv"])
     wanted_input.extend(["results/quant/all_gene_tmps.csv"])
     wanted_input.extend(["results/quant/all_gene_tmps_numbered_chr.csv"])
-    wanted_input.extend(["results/quant/all_gene_tmps_numbered_chr_downsampled.csv"])
+    #wanted_input.extend(["results/quant/all_gene_tmps_numbered_chr_downsampled.csv"])
     if config["stranded"]:
         wanted_input.extend(["results/quant/all_gene_htseq_counts.csv"])
     return wanted_input
