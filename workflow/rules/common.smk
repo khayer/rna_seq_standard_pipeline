@@ -253,7 +253,7 @@ def all_input(wildcards):
                             "results/mapped/{sample_name}_Aligned.sortedByCoord.out_genes.ent",
                             "results/mapped/{sample_name}_selected_genes.bam",
                             "results/mapped/{sample_name}_numbered_chr.bam",
-                            #"results/mapped_down/{sample_name}_numbered_chr_down.bam",
+                            "results/mapped_down/{sample_name}_numbered_chr_down.bam",
                             #"results/mapped_down/{sample_name}_numbered_chr_down_intron_htscounts.txt",
                             "results/mapped/{sample_name}_idxstats.txt", 
                             "results/mapped/{sample_name}_flagstat.txt", 
