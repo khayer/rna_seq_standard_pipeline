@@ -25,6 +25,23 @@ rule run_htseq:
         time = "24:00:00"
     params: 
         gtf_anno = config["gtf"]
+    message: "run_htseq {input}: {resources.cpu} threads / {resources.mem}"
+    shell:
+        """
+        htseq-count -n {resources.cpu} -f bam -t exon -r pos -s reverse -m intersection-strict {input[0]} {params.gtf_anno} > {output[0]}
+        """
+
+rule run_htseq_downsampled:
+    input: "results/mapped_down/{sample_name}_numbered_chr_down.bam", "results/mapped/{sample_name}_numbered_chr_down.bam.bai"
+    output: "results/mapped_down/{sample_name}_htscounts_down.txt"
+    log:    "00log/run_htseq_{sample_name}.log"
+    conda: "../envs/htseq_env.yaml"
+    resources: 
+        cpu = 14,
+        mem = "20",
+        time = "24:00:00"
+    params: 
+        gtf_anno = config["gtf"]
     message: "run_htseq_downsampled {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
@@ -151,7 +168,7 @@ else:
             """
 
 
-rule run_htseq_downsampled:
+rule run_htseq_downsampled_introns:
     input: "results/mapped_down/{sample_name}_numbered_chr_down.bam", "results/mapped_down/{sample_name}_numbered_chr_down.bam.bai"
     output: "results/mapped_down/{sample_name}_numbered_chr_down_intron_htscounts.txt"
     log:    "00log/run_TPMCalculator_downsampled_{sample_name}.log"
@@ -162,7 +179,7 @@ rule run_htseq_downsampled:
         time = "24:00:00"
     params: 
         gtf_anno_introns = config["gtf_introns"]
-    message: "run_htseq_downsampled {input}: {resources.cpu} threads / {resources.mem}"
+    message: "run_htseq_downsampled_introns {input}: {resources.cpu} threads / {resources.mem}"
     shell:
         """
         htseq-count -n {resources.cpu} -f bam -t exon -r pos -s no -m intersection-strict {input[0]} {params.gtf_anno_introns} > {output[0]}
@@ -239,3 +256,17 @@ rule run_merge_gene_htseq_counts:
     script:
         "../scripts/merge_htseq.py"
 
+
+rule run_merge_gene_htseq_counts_down:
+    input: get_all_gene_htseq_files_down
+    output: "results/quant/all_gene_htseq_counts_numbered_chr_downsampled.csv"
+    log:    "00log/run_merge_gene_htseq_counts.log"
+    conda: "../envs/python_tools.yaml"
+    resources: 
+        cpu = 2,
+        mem = "30",
+        time = "24:00:00"
+    params: "results/mapped/", config["gtf"]
+    message: "run_merge_gene_htseq_counts_down {params}: {resources.cpu} threads / {resources.mem}"
+    script:
+        "../scripts/merge_htseq.py"
