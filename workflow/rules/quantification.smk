@@ -32,7 +32,7 @@ rule run_htseq:
         """
 
 rule run_htseq_downsampled:
-    input: "results/mapped_down/{sample_name}_numbered_chr_down.bam", "results/mapped/{sample_name}_numbered_chr_down.bam.bai"
+    input: "results/mapped_down/{sample_name}_numbered_chr_down.bam", "results/mapped_down/{sample_name}_numbered_chr_down.bam.bai"
     output: "results/mapped_down/{sample_name}_htscounts_down.txt"
     log:    "00log/run_htseq_{sample_name}.log"
     conda: "../envs/htseq_env.yaml"
