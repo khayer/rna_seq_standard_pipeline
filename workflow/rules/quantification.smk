@@ -266,7 +266,7 @@ rule run_merge_gene_htseq_counts_down:
         cpu = 2,
         mem = "30",
         time = "24:00:00"
-    params: "results/mapped/", config["gtf"]
+    params: "results/mapped_down/", config["gtf"]
     message: "run_merge_gene_htseq_counts_down {params}: {resources.cpu} threads / {resources.mem}"
     script:
         "../scripts/merge_htseq.py"
